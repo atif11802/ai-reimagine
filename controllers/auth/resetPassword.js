@@ -1,8 +1,3 @@
-const User = require("../../models/User.js");
-const UserVerification = require("../../models/UserVerification.js");
-const sendEmail = require("../../utils/sendMail.js");
-const { generateAccessToken } = require("../../utils/jwt.js");
-
 module.exports = async (req, res) => {
   const { password } = req.body;
 
