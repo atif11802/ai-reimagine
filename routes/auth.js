@@ -13,6 +13,7 @@ const router = express.Router();
 const userProtect = require("../middlewares/userProtect.js");
 const { multerErrorHandler } = require("../middlewares/multerErrorHandler.js");
 const updateProfilePic = require("../controllers/user/updateProfilePic.js");
+const resetPassword = require("../controllers/auth/resetPassword.js");
 const multer = require("multer");
 const uploadFile = multer({ dest: "from/" });
 // Local Sign Up
@@ -25,15 +26,15 @@ router.post("/login", localLogin);
 
 // Google Authentication
 router.get(
-	"/google",
-	passport.authenticate("google", { scope: ["profile", "email"] })
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 // Google Callback
 router.get(
-	"/google/callback",
-	passport.authenticate("google", { failureRedirect: "/login" }),
-	googleCallback
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  googleCallback
 );
 
 // Refresh Token Endpoint
@@ -45,10 +46,12 @@ router.get("/logout", logout);
 // get selt route for credits info
 router.get("/self", userProtect, getSelf);
 router.patch(
-	"/update-profile-pic",
-	userProtect,
-	uploadFile.single("image"),
-	updateProfilePic
+  "/update-profile-pic",
+  userProtect,
+  uploadFile.single("image"),
+  updateProfilePic
 );
+
+router.patch("/reset-password", userProtect, resetPassword);
 
 module.exports = router;
