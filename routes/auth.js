@@ -14,6 +14,8 @@ const userProtect = require("../middlewares/userProtect.js");
 const { multerErrorHandler } = require("../middlewares/multerErrorHandler.js");
 const updateProfilePic = require("../controllers/user/updateProfilePic.js");
 const resetPassword = require("../controllers/auth/resetPassword.js");
+const forgotPassword = require("../controllers/auth/forgotPassword.js");
+const setForgotPassword = require("../controllers/auth/setForgotPassword.js");
 const multer = require("multer");
 const uploadFile = multer({ dest: "from/" });
 // Local Sign Up
@@ -53,5 +55,9 @@ router.patch(
 );
 
 router.patch("/reset-password", userProtect, resetPassword);
+
+router.get("/forgot-password", forgotPassword);
+
+router.patch("/set-forgot-password", setForgotPassword);
 
 module.exports = router;
