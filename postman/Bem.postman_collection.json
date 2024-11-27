@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "e4231aa8-12dd-49d7-aa52-5eab08ecd7f3",
+		"_postman_id": "6504263d-abb1-4ebd-b003-ac3a942def77",
 		"name": "BEM Backend API",
 		"description": "Postman collection for BEM Backend API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "16359721"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38502630"
 	},
 	"item": [
 		{
@@ -17,19 +17,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Test User\",\n\t\"email\": \"test@example.com\",\n\t\"password\": \"password123\"\n}"
+							"raw": "{\n\t\"name\": \"Test User\",\n\t\"email\": \"test@example.com\",\n\t\"password\": \"password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/signup",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"signup"
-							]
-						}
+						"url": "{{base_url}}/api/auth/signup"
 					},
 					"response": [
 						{
@@ -46,17 +41,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/auth/signup",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"signup"
-									]
-								}
+								"url": "{{base_url}}/api/auth/signup"
 							},
 							"status": "Created",
 							"code": 201,
@@ -102,24 +87,32 @@
 				},
 				{
 					"name": "Local Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"pm.environment.set(\"access_token\", response.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"test@example.com\",\n\t\"password\": \"password123\"\n}"
+							"raw": "{\n\t\"email\": \"test@example.com\",\n\t\"password\": \"password12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/login",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
-						}
+						"url": "{{base_url}}/api/auth/login"
 					},
 					"response": [
 						{
@@ -136,17 +129,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/auth/login",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
+								"url": "{{base_url}}/api/auth/login"
 							},
 							"status": "OK",
 							"code": 200,
@@ -191,21 +174,102 @@
 					]
 				},
 				{
-					"name": "Logout",
+					"name": "reset password",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"password12345\",\n    \"confirm_password\": \"password12345\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/auth/reset-password"
+					},
+					"response": []
+				},
+				{
+					"name": "fotgot password",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{base_url}}/api/auth/logout",
+							"raw": "{{base_url}}/api/auth/forgot-password?email=test@example.com",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"auth",
-								"logout"
+								"forgot-password"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test@example.com"
+								}
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "set forgotten password",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@example.com\", \r\n    \"token\": \"G2Kroo\",\r\n    \"password\": \"password123\",\r\n    \"confirm_password\": \"password123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/auth/set-forgot-password"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{base_url}}/api/auth/logout"
 					},
 					"response": []
 				},
@@ -214,17 +278,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/auth/google",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"google"
-							]
-						}
+						"url": "{{base_url}}/api/auth/google"
 					},
 					"response": []
 				},
@@ -233,18 +287,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/auth/google/callback",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"google",
-								"callback"
-							]
-						}
+						"url": "{{base_url}}/api/auth/google/callback"
 					},
 					"response": []
 				},
@@ -266,7 +309,8 @@
 							],
 							"variable": [
 								{
-									"key": "token"
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDc3ZmI0OTAyYjVlNzM0NmJkODk0NiIsImlhdCI6MTczMjczODk5NiwiZXhwIjoxNzMyODI1Mzk2fQ.EefmIQ3KH6-ZU2Ts6ZqLfrFoMpiz1rgrCm9g4io3BtM"
 								}
 							]
 						}
@@ -283,17 +327,7 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": {
-							"raw": "{{base_url}}/api/auth/self",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"self"
-							]
-						}
+						"url": "{{base_url}}/api/auth/self"
 					},
 					"response": [
 						{
@@ -306,17 +340,7 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": {
-									"raw": "{{base_url}}/api/auth/self",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"self"
-									]
-								}
+								"url": "{{base_url}}/api/auth/self"
 							},
 							"status": "OK",
 							"code": 200,
@@ -368,17 +392,7 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": {
-									"raw": "{{base_url}}/api/auth/self",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"self"
-									]
-								}
+								"url": "{{base_url}}/api/auth/self"
 							},
 							"status": "OK",
 							"code": 200,
@@ -427,13 +441,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -446,17 +456,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/auth/refresh-token",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"refresh-token"
-							]
-						}
+						"url": "{{base_url}}/api/auth/refresh-token"
 					},
 					"response": [
 						{
@@ -473,17 +473,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/auth/refresh-token",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"refresh-token"
-									]
-								}
+								"url": "{{base_url}}/api/auth/refresh-token"
 							},
 							"status": "OK",
 							"code": 200,
@@ -541,13 +531,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -565,16 +551,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/transaction",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"transaction"
-							]
-						}
+						"url": "{{base_url}}/api/transaction"
 					},
 					"response": [
 						{
@@ -596,16 +573,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/transaction",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"transaction"
-									]
-								}
+								"url": "{{base_url}}/api/transaction"
 							},
 							"status": "Internal Server Error",
 							"code": 500,
@@ -666,16 +634,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/transaction",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"transaction"
-									]
-								}
+								"url": "{{base_url}}/api/transaction"
 							},
 							"status": "Created",
 							"code": 201,
@@ -740,16 +699,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/transaction",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"transaction"
-									]
-								}
+								"url": "{{base_url}}/api/transaction"
 							},
 							"status": "Created",
 							"code": 201,
@@ -814,16 +764,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/transaction",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"transaction"
-									]
-								}
+								"url": "{{base_url}}/api/transaction"
 							},
 							"status": "Created",
 							"code": 201,
@@ -916,13 +857,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -931,16 +868,7 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": {
-							"raw": "{{base_url}}/api/transaction",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"transaction"
-							]
-						}
+						"url": "{{base_url}}/api/transaction"
 					},
 					"response": [
 						{
@@ -953,16 +881,7 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": {
-									"raw": "{{base_url}}/api/transaction",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"transaction"
-									]
-								}
+								"url": "{{base_url}}/api/transaction"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1055,13 +974,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -1208,28 +1123,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/admin/transaction/",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"admin",
-								"transaction",
-								""
-							]
-						}
+						"url": "{{base_url}}/api/admin/transaction/"
 					},
 					"response": [
 						{
@@ -1237,18 +1137,7 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/admin/transaction/",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"transaction",
-										""
-									]
-								}
+								"url": "{{base_url}}/api/admin/transaction/"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1341,13 +1230,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -1490,13 +1375,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "PUT",
 						"header": [],
@@ -1662,13 +1543,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -1677,17 +1554,7 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": {
-							"raw": "{{base_url}}/api/admin/user",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"admin",
-								"user"
-							]
-						}
+						"url": "{{base_url}}/api/admin/user"
 					},
 					"response": [
 						{
@@ -1700,17 +1567,7 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": {
-									"raw": "{{base_url}}/api/admin/user",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"user"
-									]
-								}
+								"url": "{{base_url}}/api/admin/user"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1763,13 +1620,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -1878,13 +1731,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "PUT",
 						"header": [
@@ -2007,13 +1856,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "DELETE",
 						"header": [
@@ -2240,16 +2085,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/plan",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"plan"
-							]
-						}
+						"url": "{{base_url}}/api/plan"
 					},
 					"response": [
 						{
@@ -2257,16 +2093,7 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/plan",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"plan"
-									]
-								}
+								"url": "{{base_url}}/api/plan"
 							},
 							"status": "OK",
 							"code": 200,
@@ -2404,13 +2231,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -2428,17 +2251,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/admin/plan",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"admin",
-								"plan"
-							]
-						}
+						"url": "{{base_url}}/api/admin/plan"
 					},
 					"response": [
 						{
@@ -2460,17 +2273,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/admin/plan",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"plan"
-									]
-								}
+								"url": "{{base_url}}/api/admin/plan"
 							},
 							"status": "Created",
 							"code": 201,
@@ -2531,17 +2334,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/admin/plan",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"plan"
-									]
-								}
+								"url": "{{base_url}}/api/admin/plan"
 							},
 							"status": "Created",
 							"code": 201,
@@ -2634,13 +2427,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "PUT",
 						"header": [
@@ -2803,17 +2592,7 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": {
-							"raw": "{{base_url}}/api/admin/promo",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"admin",
-								"promo"
-							]
-						}
+						"url": "{{base_url}}/api/admin/promo"
 					},
 					"response": [
 						{
@@ -2826,17 +2605,7 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": {
-									"raw": "{{base_url}}/api/admin/promo",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"promo"
-									]
-								}
+								"url": "{{base_url}}/api/admin/promo"
 							},
 							"status": "OK",
 							"code": 200,
@@ -2993,13 +2762,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -3017,17 +2782,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/admin/promo",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"admin",
-								"promo"
-							]
-						}
+						"url": "{{base_url}}/api/admin/promo"
 					},
 					"response": [
 						{
@@ -3049,17 +2804,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/admin/promo",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"promo"
-									]
-								}
+								"url": "{{base_url}}/api/admin/promo"
 							},
 							"status": "Created",
 							"code": 201,
@@ -3256,13 +3001,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "GET",
 						"header": [
@@ -3271,17 +3012,7 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": {
-							"raw": "{{base_url}}/api/admin/admins",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"admin",
-								"admins"
-							]
-						}
+						"url": "{{base_url}}/api/admin/admins"
 					},
 					"response": [
 						{
@@ -3294,17 +3025,7 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": {
-									"raw": "{{base_url}}/api/admin/admins",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"admins"
-									]
-								}
+								"url": "{{base_url}}/api/admin/admins"
 							},
 							"status": "OK",
 							"code": 200,
@@ -3353,13 +3074,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "PUT",
 						"header": [
@@ -3526,13 +3243,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "POST",
 						"header": [
@@ -3550,17 +3263,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/admin/create",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"admin",
-								"create"
-							]
-						}
+						"url": "{{base_url}}/api/admin/create"
 					},
 					"response": [
 						{
@@ -3582,17 +3285,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/admin/create",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"create"
-									]
-								}
+								"url": "{{base_url}}/api/admin/create"
 							},
 							"status": "Created",
 							"code": 201,
@@ -3701,17 +3394,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/admin/create",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"create"
-									]
-								}
+								"url": "{{base_url}}/api/admin/create"
 							},
 							"status": "Bad Request",
 							"code": 400,
@@ -3813,13 +3496,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_admin}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_admin}}"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -3832,17 +3511,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/admin/credit",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"admin",
-								"credit"
-							]
-						}
+						"url": "{{base_url}}/api/admin/credit"
 					},
 					"response": [
 						{
@@ -3859,17 +3528,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/admin/credit",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"admin",
-										"credit"
-									]
-								}
+								"url": "{{base_url}}/api/admin/credit"
 							},
 							"status": "Created",
 							"code": 201,
@@ -3971,13 +3630,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -3991,17 +3646,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base_url}}/api/upload/",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"upload",
-								""
-							]
-						}
+						"url": "{{base_url}}/api/upload/"
 					},
 					"response": []
 				},
@@ -4010,13 +3655,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -4033,17 +3674,7 @@
 								}
 							]
 						},
-						"url": {
-							"raw": "{{base_url}}/api/upload/multiple",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"upload",
-								"multiple"
-							]
-						}
+						"url": "{{base_url}}/api/upload/multiple"
 					},
 					"response": []
 				}
@@ -4057,13 +3688,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -4076,17 +3703,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/image/create-mask",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"image",
-								"create-mask"
-							]
-						}
+						"url": "{{base_url}}/api/image/create-mask"
 					},
 					"response": [
 						{
@@ -4103,17 +3720,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/image/create-mask",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"image",
-										"create-mask"
-									]
-								}
+								"url": "{{base_url}}/api/image/create-mask"
 							},
 							"status": "Created",
 							"code": 201,
@@ -4210,13 +3817,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "POST",
 						"header": [],
@@ -4229,17 +3832,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{base_url}}/api/image/generate-image",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"image",
-								"generate-image"
-							]
-						}
+						"url": "{{base_url}}/api/image/generate-image"
 					},
 					"response": [
 						{
@@ -4256,17 +3849,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/image/generate-image",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"image",
-										"generate-image"
-									]
-								}
+								"url": "{{base_url}}/api/image/generate-image"
 							},
 							"status": "Created",
 							"code": 201,
@@ -4366,17 +3949,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{base_url}}/api/image/generate-image",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"image",
-										"generate-image"
-									]
-								}
+								"url": "{{base_url}}/api/image/generate-image"
 							},
 							"status": "Created",
 							"code": 201,
@@ -4469,13 +4042,9 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
@@ -4620,27 +4189,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{auth_user}}",
-									"type": "string"
-								}
-							]
+							"bearer": {
+								"token": "{{auth_user}}"
+							}
 						},
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/image/",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"image",
-								""
-							]
-						}
+						"url": "{{base_url}}/api/image/"
 					},
 					"response": [
 						{
@@ -4648,17 +4203,7 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/image/",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"image",
-										""
-									]
-								}
+								"url": "{{base_url}}/api/image/"
 							},
 							"status": "OK",
 							"code": 200,
@@ -5029,17 +4574,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/image/color-preferences",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"image",
-								"color-preferences"
-							]
-						}
+						"url": "{{base_url}}/api/image/color-preferences"
 					},
 					"response": [
 						{
@@ -5047,17 +4582,7 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/image/color-preferences",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"image",
-										"color-preferences"
-									]
-								}
+								"url": "{{base_url}}/api/image/color-preferences"
 							},
 							"status": "OK",
 							"code": 200,
@@ -5175,17 +4700,7 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/image/design-themes",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"image",
-										"design-themes"
-									]
-								}
+								"url": "{{base_url}}/api/image/design-themes"
 							},
 							"status": "OK",
 							"code": 200,
@@ -5303,17 +4818,7 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{base_url}}/api/image/space-types",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"api",
-										"image",
-										"space-types"
-									]
-								}
+								"url": "{{base_url}}/api/image/space-types"
 							},
 							"status": "OK",
 							"code": 200,
