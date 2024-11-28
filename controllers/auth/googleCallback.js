@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     // res.redirect(`/?accessToken=${accessToken}&refreshToken=${refreshToken}`);
     return res.status(200).json({ accessToken, refreshToken });
   } catch (err) {
-    console.error("Error during Google callback:", error);
+    console.error("Error during Google callback:", err);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
