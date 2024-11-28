@@ -105,7 +105,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"email\": \"test@example.com\",\n\t\"password\": \"password12345\"\n}",
+							"raw": "{\n\t// \"email\": \"testadmin@example.com\",\n\t\"email\": \"test@example.com\",\n\t\"password\": \"password12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1544,7 +1544,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{auth_admin}}"
+								"token": "{{access_token}}"
 							}
 						},
 						"method": "GET",
@@ -1621,7 +1621,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{auth_admin}}"
+								"token": "{{access_token}}"
 							}
 						},
 						"method": "GET",
@@ -1645,7 +1645,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "66f5a49ca6c7121d851d334a"
+									"value": "67477f1c2d201ac03ebf2361"
 								}
 							]
 						}
@@ -1732,7 +1732,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{auth_admin}}"
+								"token": "{{access_token}}"
 							}
 						},
 						"method": "PUT",
@@ -1744,7 +1744,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"Updated User\"\n}",
+							"raw": "{\n\t\"name\": \"Updated User by admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1765,10 +1765,118 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "66f5a49ca6c7121d851d334a"
+									"value": "6748c1c22a8a141dcf188c6e"
 								}
 							]
 						}
+					},
+					"response": [
+						{
+							"name": "Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Updated User\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/admin/user/:id",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"user",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "66f5a49ca6c7121d851d334a"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "142"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"8e-lgfmFVXoAUN1yTiVTybloSdNEA4\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 Sep 2024 09:40:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User updated successfully\",\n    \"user\": {\n        \"name\": \"Updated User\",\n        \"email\": \"ashikuzzamanabir@hotmail.com\",\n        \"_id\": \"66f5a49ca6c7121d851d334a\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User self",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Updated User\",\n    \"profession\": \"photographer\",\n    \"company\": \"\",\n    \"country\": \"USA\",\n    \"website\": \"https\",\n    \"phone\": \"+kkk0132540\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}/api/user"
 					},
 					"response": [
 						{
@@ -3647,6 +3755,31 @@
 							]
 						},
 						"url": "{{base_url}}/api/upload/"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload profile picure",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/mdant/Downloads/REimagineHome_1732731481450_1x.png"
+								}
+							]
+						},
+						"url": "{{base_url}}/api/upload/profile-picture"
 					},
 					"response": []
 				},

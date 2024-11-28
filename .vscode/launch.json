@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      // only one should stay uncommented prior to entering debug mode
+      "program": "${workspaceFolder}/server.js",
+      // "program": "${workspaceFolder}/backend/src/scripts/script-runner.js",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}

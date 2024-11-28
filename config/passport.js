@@ -1,69 +1,79 @@
 // config/passport.js
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const LocalStrategy = require('passport-local').Strategy;
-const User = require('../models/User');
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const LocalStrategy = require("passport-local").Strategy;
+const User = require("../models/User");
 
 module.exports = function (passport) {
-	// Google Strategy
-	passport.use(
-		new GoogleStrategy(
-			{
-				clientID: process.env.GOOGLE_CLIENT_ID,
-				clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-				callbackURL: process.env.PASSPORT_REDIRECT_URL,
-			},
-			async (accessToken, refreshToken, profile, done) => {
-				try {
-					let user = await User.findOne({ googleId: profile.id });
+  // Google Strategy
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.PASSPORT_REDIRECT_URL,
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        try {
+          let user = await User.findOne({ googleId: profile.id });
 
-					if (!user) {
-						user = await new User({
-							googleId: profile.id,
-							name: profile.displayName,
-							email: profile.emails[0].value,
-							isVerified: true,
-						}).save();
-					}
+          //   when user already logged in with email
+          if (!user) {
+            user = await User.findOne({ email: profile.emails[0].value });
 
-					done(null, user);
-				} catch (err) {
-					done(err, false);
-				}
-			}
-		)
-	);
+            user.googleId = profile.id;
+            user.isVerified = true;
 
-	// Local Strategy
-	passport.use(
-		new LocalStrategy(
-			{ usernameField: 'email' },
-			async (email, password, done) => {
-				try {
-					console.log(email, password);
-					const user = await User.findOne({ email });
-					if (!user) return done(null, false, { message: 'No user found' });
+            await user.save();
+          }
 
-					const isMatch = await user.comparePassword(password);
-					if (!isMatch)
-						return done(null, false, { message: 'Incorrect password' });
-					return done(null, user);
-				} catch (err) {
-					done(err, false);
-				}
-			}
-		)
-	);
+          if (!user) {
+            user = await new User({
+              googleId: profile.id,
+              name: profile.displayName,
+              email: profile.emails[0].value,
+              isVerified: true,
+            }).save();
+          }
 
-	// Serialize User
-	passport.serializeUser((user, done) => done(null, user.id));
+          done(null, user);
+        } catch (err) {
+          done(err, false);
+        }
+      }
+    )
+  );
 
-	// Deserialize User
-	passport.deserializeUser(async (id, done) => {
-		try {
-			const user = await User.findById(id);
-			done(null, user);
-		} catch (err) {
-			done(err, false);
-		}
-	});
+  // Local Strategy
+  passport.use(
+    new LocalStrategy(
+      { usernameField: "email" },
+      async (email, password, done) => {
+        try {
+          console.log(email, password);
+          const user = await User.findOne({ email });
+          if (!user) return done(null, false, { message: "No user found" });
+
+          const isMatch = await user.comparePassword(password);
+          if (!isMatch)
+            return done(null, false, { message: "Incorrect password" });
+          return done(null, user);
+        } catch (err) {
+          done(err, false);
+        }
+      }
+    )
+  );
+
+  // Serialize User
+  passport.serializeUser((user, done) => done(null, user.id));
+
+  // Deserialize User
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await User.findById(id);
+      done(null, user);
+    } catch (err) {
+      done(err, false);
+    }
+  });
 };
