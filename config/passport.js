@@ -16,6 +16,7 @@ module.exports = function (passport) {
         try {
           let user = await User.findOne({ googleId: profile.id });
 
+          //   when user already logged in with email
           if (!user) {
             user = await User.findOne({ email: profile.emails[0].value });
 
