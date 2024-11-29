@@ -60,9 +60,12 @@ module.exports = async (req, res) => {
 
     await imageGenerated.save();
 
-    res.status(201).json({ message: "Added to Project" });
+    res.status(201).json({ message: "Added to project" });
   } catch (error) {
-    console.log(error);
+    console.log(error.code);
+    if (error.code === 11000) {
+      return res.status(400).json({ message: "Project name already exists" });
+    }
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
