@@ -18,6 +18,7 @@ const adminRoute = require("./routes/admin/adminRoot.js");
 const uploadRoute = require("./routes/upload.js");
 const imageRoute = require("./routes/image.js");
 const userRoute = require("./routes/user.js");
+const projectRoute = require("./routes/project.js");
 
 // app initiate
 const app = express();
@@ -56,5 +57,6 @@ app.use("/api/admin", adminRoute);
 app.use("/api/upload", uploadRoute);
 app.use("/api/image", imageRoute);
 app.use("/api/user", userRoute);
+app.use("/api/project", projectRoute);
 
 module.exports = app;

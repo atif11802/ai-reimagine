@@ -34,12 +34,16 @@ module.exports = async (req, res) => {
       project = await Project.findById(projectId);
 
       if (!project) {
-        res.status(400).json({ message: "Project Not Found" });
+        return res.status(400).json({ message: "Project Not Found" });
       }
 
-      project.media = Array.from(
-        new Set([...project.media, imageGenerated?._id])
+      const isDuplicate = project.media.some(
+        (id) => id.toString() === imageGenerated._id.toString()
       );
+
+      if (!isDuplicate) {
+        project.media.push(imageGenerated?._id);
+      }
     }
 
     if (!project && projectName) {
