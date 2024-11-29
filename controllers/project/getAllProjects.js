@@ -6,13 +6,19 @@ module.exports = async (req, res) => {
   try {
     const projects = await Project.find({
       user: req?.user?._id,
-    }).populate("media");
+    })
+      .populate("media")
+      .sort({
+        updatedAt: 1,
+      });
 
     const unassignedImages = await ImageGeneration.find({
       user: req?.user?._id,
       type: "Generate",
       status: "Completed",
       project: null,
+    }).sort({
+      _id: 1,
     });
 
     const unassinedProject = {
