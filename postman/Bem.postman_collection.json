@@ -520,6 +520,92 @@
 							"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVhNDljYTZjNzEyMWQ4NTFkMzM0YSIsImlhdCI6MTcyNzQyOTg4NiwiZXhwIjoxNzI3NTE2Mjg2fQ.IXUflgeD166IzqUgZ0QM6MKwpr82XUZuZ-dcjluK_Ho\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVhNDljYTZjNzEyMWQ4NTFkMzM0YSIsImlhdCI6MTcyNzQyOTg4NiwiZXhwIjoxNzMwMDIxODg2fQ.NNOpaddnC4TDBOrfV0rgxzVeyVfWlZOnpcksJwuc-CI\"\n}"
 						}
 					]
+				},
+				{
+					"name": "Upload profile pic",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/mdant/Downloads/test 1.jpg"
+								}
+							]
+						},
+						"url": "{{base_url}}/api/auth//update-profile-pic"
+					},
+					"response": [
+						{
+							"name": "Refresh Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVhNDljYTZjNzEyMWQ4NTFkMzM0YSIsImlhdCI6MTcyNzM3NDUyOCwiZXhwIjoxNzI5OTY2NTI4fQ.OHT_qlbq2vMZTmryow6PsmRT9fdk8aBkPM6cxLSxYVA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{base_url}}/api/auth/refresh-token"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "378"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17a-DCuBHj6JSg7X5EW8o9nbSaaKbfA\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3A_zPOy2HSSr852-soyE42yXODF3yrIDQq.3aptuQ4wiMhzkr6olSKsu%2FnBlrmtNyY%2F8a%2BZwgiWhWg; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 27 Sep 2024 09:38:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVhNDljYTZjNzEyMWQ4NTFkMzM0YSIsImlhdCI6MTcyNzQyOTg4NiwiZXhwIjoxNzI3NTE2Mjg2fQ.IXUflgeD166IzqUgZ0QM6MKwpr82XUZuZ-dcjluK_Ho\",\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZjVhNDljYTZjNzEyMWQ4NTFkMzM0YSIsImlhdCI6MTcyNzQyOTg4NiwiZXhwIjoxNzMwMDIxODg2fQ.NNOpaddnC4TDBOrfV0rgxzVeyVfWlZOnpcksJwuc-CI\"\n}"
+						}
+					]
 				}
 			]
 		},
@@ -3739,7 +3825,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{auth_user}}"
+								"token": "{{access_token}}"
 							}
 						},
 						"method": "POST",
@@ -3750,7 +3836,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/D:/228395002_1299198117217039_6293129310883344359_n.jpg"
+									"src": "/C:/Users/mdant/Downloads/test 1.jpg"
 								}
 							]
 						},
@@ -3829,7 +3915,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\"\r\n}",
+							"raw": "{\r\n    // \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1732908994972_test_1.jpg\"\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1732910579344_test_1.jpg\"\r\n    // \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1732909262356_test_2.jpg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3958,7 +4044,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\",\r\n    \"maskJobId\": \"66fad13e3e6dd10df4a5786b\",\r\n    // \"masks\": [\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/04b5c7b1-8a38-49a7-9eb2-54901ddd9ad1_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/2c069422-23e8-4fa6-b461-9e064c67db69_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/f2dc5adc-fe86-4437-a5e8-4e595b27dc43_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/1051eb87-dc86-4c08-a4fb-5912528b9e0e_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0432561f-3de5-4996-9c35-1e66ed58ee56_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/de7074c6-6f76-4a8d-869d-79b88f3a5096_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/738727bf-489c-4566-9ede-67cfc847ce28_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/711ea54d-fe2b-458f-94e5-5a7bf2253629_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0c69456b-56c4-42d0-9000-bd8c37f01930_segment.png\"\r\n    // ],\r\n    \"maskCategory\": \"furnishing\",\r\n    \"spaceType\": \"ST-INT-003\", //for empty your space\r\n    // \"designTheme\": \"DT-INT-010\",\r\n    // \"colorPreference\": \"blue\",\r\n    // \"materialPreference\": \"wood\",\r\n    // \"landscapingPreference\": \"minimalist\",\r\n    // \"generationCount\": 1,\r\n    \"additionalPrompt\": \"EMPTY_YOUR_SPACE\"\r\n}",
+							"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\",\r\n    \"maskJobId\": \"674a0f4b386ebe40f10fbcd8\",\r\n    // \"masks\": [\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/04b5c7b1-8a38-49a7-9eb2-54901ddd9ad1_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/2c069422-23e8-4fa6-b461-9e064c67db69_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/f2dc5adc-fe86-4437-a5e8-4e595b27dc43_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/1051eb87-dc86-4c08-a4fb-5912528b9e0e_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0432561f-3de5-4996-9c35-1e66ed58ee56_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/de7074c6-6f76-4a8d-869d-79b88f3a5096_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/738727bf-489c-4566-9ede-67cfc847ce28_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/711ea54d-fe2b-458f-94e5-5a7bf2253629_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0c69456b-56c4-42d0-9000-bd8c37f01930_segment.png\"\r\n    // ],\r\n    \"maskCategory\": \"furnishing\",\r\n    \"spaceType\": \"ST-INT-003\", //for empty your space\r\n    // \"designTheme\": \"DT-INT-010\",\r\n    // \"colorPreference\": \"blue\",\r\n    // \"materialPreference\": \"wood\",\r\n    // \"landscapingPreference\": \"minimalist\",\r\n    // \"generationCount\": 1,\r\n    \"additionalPrompt\": \"EMPTY_YOUR_SPACE\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4176,7 +4262,7 @@
 						"auth": {
 							"type": "bearer",
 							"bearer": {
-								"token": "{{auth_user}}"
+								"token": "{{access_token}}"
 							}
 						},
 						"method": "GET",
@@ -4196,7 +4282,7 @@
 							"variable": [
 								{
 									"key": "jobId",
-									"value": "66fad3843e6dd10df4a5790b"
+									"value": "674a133c386ebe40f10fd61e"
 								}
 							]
 						}
@@ -4582,7 +4668,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "66fa2e3fffdb8a1d94a808b5"
+									"value": "674a1e4f30cbc3917d4b1ba8"
 								}
 							]
 						}
@@ -5523,7 +5609,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imageGenerationId\": \"6749b05c155585bc858c0a13\",\r\n    \"projectName\": \"test 1 project\",\r\n    \"projectId\": \"6749c163415e7efe79afddd9\"\r\n\r\n}",
+							"raw": "{\r\n    \"imageGenerationId\": \"6749b05c155585bc858c0a13\",\r\n    \"projectName\": \"test 1 project\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
