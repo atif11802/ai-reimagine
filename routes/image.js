@@ -11,15 +11,18 @@ const getAllFavourite = require("../controllers/image/getAllFavourite.js");
 const addToFavourite = require("../controllers/image/addToFavourite.js");
 const getAllDownloaded = require("../controllers/image/getAllDownloaded.js");
 const addToDownloaded = require("../controllers/image/addToDownloaded.js");
+const addToProject = require("../controllers/image/addToProject.js");
+
 const router = express.Router();
 
 router.get("/", userProtect, getAllGeneratedImages);
 
 router.get("/favourite", userProtect, getAllFavourite);
 router.put("/add-to-favourite", userProtect, addToFavourite);
-
 router.get("/downloaded", userProtect, getAllDownloaded);
 router.put("/add-to-downloaded", userProtect, addToDownloaded);
+
+router.put("/add-to-project", userProtect, addToProject);
 
 router.post("/create-mask", userProtect, createMask);
 router.post("/webhook/mask", maskWebhook);
