@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const getUserCredits = require("../utils/getUserCredits.js");
 
 const imageGenerationSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -27,6 +26,7 @@ const imageGenerationSchema = new mongoose.Schema({
 });
 
 imageGenerationSchema.methods.deductCredits = async function () {
+  const getUserCredits = require("../utils/getUserCredits");
   const availableCredits = await getUserCredits(this.user);
   if (availableCredits >= this.creditsUsed) {
     this.status = "Completed";
