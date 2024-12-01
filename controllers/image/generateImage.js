@@ -20,13 +20,22 @@ module.exports = async (req, res) => {
 
   try {
     let mask;
-    let gettedMask;
+    let gettedMask = [];
 
     if (maskJobId) {
       mask = await ImageGeneration.findOne({ jobId: maskJobId });
-      gettedMask = mask?.maskUrls
-        // .filter((item) => item.category.includes(maskCategory))
-        .map((item) => item.url);
+      // .filter((item) => item.category.includes(maskCategory))
+      // gettedMask = mask?.maskUrls.map((item) => item.url);
+
+      mask?.maskUrls.forEach((item) => {
+        if (maskCategory === "architectural") {
+          if (item.name === maskingElement) {
+            gettedMask.push(item.url);
+          }
+        } else {
+          gettedMask.push(item.url);
+        }
+      });
     }
     console.log(mask);
     const userCredits = await getUserCredits(req.user._id);
