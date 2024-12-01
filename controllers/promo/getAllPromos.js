@@ -1,12 +1,15 @@
-const Promo = require('../../models/Promo.js');
+const Promo = require("../../models/Promo.js");
 
 module.exports = async (req, res) => {
-	try {
-		const promos = await Promo.find().populate('plan'); // Adjust population as needed
-		return res.status(200).json(promos);
-	} catch (error) {
-		return res
-			.status(500)
-			.json({ message: 'Error fetching promos', error: error.message });
-	}
+  try {
+    const skip = parseInt(req.query.skip) || 0;
+    const limit = parseInt(req.query.limit) || 10;
+
+    const promos = await Promo.find().populate("plan").skip(skip).limit(limit); // Adjust population as needed
+    return res.status(200).json({ promos, skip, limit });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Error fetching promos", error: error.message });
+  }
 };

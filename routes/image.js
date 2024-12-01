@@ -49,7 +49,7 @@ router.get("/mask-status/:jobId", async (req, res) => {
   }
 });
 
-// Helper APIs (space type, design theme, color preferences)
+// Helper APIs (space type, design theme, color preferences, ladnscaping-preferences)
 router.get("/space-types", async (req, res) => {
   try {
     const response = await callReimagine("/get-space-type-list", "GET");
@@ -71,6 +71,18 @@ router.get("/design-themes", async (req, res) => {
 router.get("/color-preferences", async (req, res) => {
   try {
     const response = await callReimagine("/get-color-preference-list", "GET");
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get("/landscaping-preferences", async (req, res) => {
+  try {
+    const response = await callReimagine(
+      "/get-landscaping-preference-list",
+      "GET"
+    );
     res.json(response);
   } catch (error) {
     res.status(500).json({ message: error.message });

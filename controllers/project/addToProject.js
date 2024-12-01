@@ -47,9 +47,21 @@ module.exports = async (req, res) => {
     }
 
     if (!project && projectName) {
-      project = new Project({
+      // find project of same user with same name. if exist, increment 1
+      project = await Project.findOne({
         user: req?.user?._id,
         name: projectName,
+      });
+
+      let newProjectName = projectName;
+
+      if (project) {
+        newProjectName = `${projectName} ${project?.media?.length + 1}`;
+      }
+
+      project = new Project({
+        user: req?.user?._id,
+        name: newProjectName,
         media: [imageGenerationId],
       });
     }
@@ -60,7 +72,7 @@ module.exports = async (req, res) => {
 
     await imageGenerated.save();
 
-    res.status(201).json({ message: "Added to project" });
+    res.status(201).json({ message: "Added to project", project });
   } catch (error) {
     console.log(error.code);
     if (error.code === 11000) {
