@@ -10,7 +10,10 @@ exports.getAllTransactions = async (req, res) => {
       .populate("user", "_id name email")
       .skip(skip)
       .limit(limit);
-    res.status(200).json({ transactions, skip, limit });
+
+    const total = await Transaction.countDocuments();
+
+    res.status(200).json({ transactions, skip, limit, total });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

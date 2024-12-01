@@ -34,7 +34,13 @@ module.exports = async (req, res) => {
 
     if (unassignedImages.length && !skip) projects.push(unassinedProject);
 
-    res.status(200).json({ projects, skip, limit });
+    let total = await Project.countDocuments({
+      user: req?.user?._id,
+    });
+
+    total = unassignedImages.length ? total + 1 : total;
+
+    res.status(200).json({ projects, skip, limit, total });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });

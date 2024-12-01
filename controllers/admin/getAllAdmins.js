@@ -8,7 +8,10 @@ module.exports = async (req, res) => {
     const admins = await User.find({ isAdmin: true }, "-password")
       .skip(skip)
       .limit(limit); // Exclude passwords from the response
-    return res.status(200).json({ admins, skip, limit });
+
+    const total = await User.countDocuments({ isAdmin: true });
+
+    return res.status(200).json({ admins, skip, limit, total });
   } catch (error) {
     return res
       .status(500)

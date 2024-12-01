@@ -6,7 +6,10 @@ module.exports = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
 
     const plans = await Plan.find().populate("promo").skip(skip).limit(limit); // Adjust population as needed
-    return res.status(200).json({ plans, skip, limit });
+
+    const total = await Plan.countDocuments();
+
+    return res.status(200).json({ plans, skip, limit, total });
   } catch (error) {
     return res
       .status(500)

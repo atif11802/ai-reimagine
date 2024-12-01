@@ -8,7 +8,9 @@ module.exports = async (req, res) => {
     const users = await User.find({}, "-password -refreshToken")
       .skip(skip)
       .limit(limit); // Exclude password from the results
-    return res.status(200).json({ users, skip, limit });
+
+    const total = await User.countDocuments();
+    return res.status(200).json({ users, skip, limit, total });
   } catch (error) {
     return res
       .status(500)

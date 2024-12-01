@@ -12,7 +12,13 @@ module.exports = async (req, res) => {
     })
       .skip(skip)
       .limit(limit);
-    res.status(200).json({ favouriteImages, skip, limit });
+
+    const total = await ImageGeneration.countDocuments({
+      user: req?.user?._id,
+      type: "Generate",
+      favourite: true,
+    });
+    res.status(200).json({ favouriteImages, skip, limit, total });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }

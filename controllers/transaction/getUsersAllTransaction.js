@@ -12,7 +12,11 @@ module.exports = async (req, res) => {
       .populate("user", "name email")
       .skip(skip)
       .limit(limit);
-    return res.status(200).json({ transactions, skip, limit });
+
+    const total = await Transaction.countDocuments({
+      user: req?.user?._id,
+    });
+    return res.status(200).json({ transactions, skip, limit, total });
   } catch (error) {
     return res
       .status(500)

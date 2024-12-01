@@ -10,7 +10,11 @@ module.exports = async (req, res) => {
     })
       .skip(skip)
       .limit(limit);
-    res.status(200).json({ generatedImages, skip, limit });
+
+    const total = await ImageGeneration.countDocuments({
+      user: req?.user?._id,
+    });
+    res.status(200).json({ generatedImages, skip, limit, total });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }

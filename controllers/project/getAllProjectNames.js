@@ -13,7 +13,11 @@ module.exports = async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-    res.status(200).json({ projectNames, skip, limit });
+    const total = await Project.countDocuments({
+      user: req?.user?._id,
+    });
+
+    res.status(200).json({ projectNames, skip, limit, total });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
