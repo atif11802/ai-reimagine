@@ -8,6 +8,7 @@ const uploadFile = multer({ dest: "from/" });
 const userProtect = require("../middlewares/userProtect.js");
 const resizeImageIfNeeded = require("../utils/resizeImage.js");
 const User = require("../models/User.js");
+const Solution = require("../models/Solution.js");
 
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 second
@@ -139,6 +140,120 @@ router.post("/", userProtect, uploadFile.single("image"), async (req, res) => {
     res.status(500).json({ message: "error" });
   }
 });
+
+// uploads a single file to s3
+router.post(
+  "/solution",
+  userProtect,
+  uploadFile.single("image"),
+  async (req, res) => {
+    // configuring the AWS environment
+    const { solutionName } = req.body;
+
+    AWS.config.update({
+      region: process.env.S3_REGION,
+      accessKeyId: process.env.S3_ACCESS_KEY,
+      secretAccessKey: process.env.S3_SECRET_KEY,
+      signatureVersion: "v4",
+    });
+
+    const s3 = new AWS.S3();
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+      }
+
+      const fileName = `${Date.now()}_${req.file.originalname.replace(
+        " ",
+        "_"
+      )}`;
+      const resizedFilePath = `from/resized_${fileName}`; // Temporary file path for resized image
+
+      console.log(`Original file path: ${req.file.path}`);
+      console.log(`Resized file path: ${resizedFilePath}`);
+
+      // Resize the image if needed
+      const finalFilePath = await resizeImageIfNeeded(
+        req.file.path,
+        resizedFilePath
+      );
+
+      const fileContent = fs.readFileSync(finalFilePath);
+
+      const params = {
+        Bucket: process.env.S3_BUCKET_NAME,
+        Body: fileContent,
+        Key: fileName,
+      };
+
+      s3.upload(params, async function (err, data) {
+        // handle error
+        if (err) {
+          console.log("there was an error");
+          console.log("Error", err);
+
+          return res.status(500).json({ message: "Uploading File Failed" });
+        }
+
+        // success
+        if (data) {
+          console.log(data);
+          console.log("Uploaded in:", data.Location);
+          // Save the file URL to the database
+          try {
+            const solution = new Solution({
+              user: req.user._id,
+              url: data.Location,
+              solution_name: solutionName,
+            });
+            await solution.save();
+
+            console.log("File saved to database:", solution);
+
+            const responseSolution = {
+              solutionName: solution.solution_name,
+              url: solution.url,
+              _id: solution._id,
+              createdAt: solution.createdAt,
+              updatedAt: solution.updatedAt,
+              __v: solution.__v,
+            };
+
+            res.status(200).json({ solution: responseSolution });
+          } catch (dbError) {
+            console.log("Database error:", dbError);
+            return res.status(500).json({ message: "Saving File URL Failed" });
+          }
+
+          try {
+            console.log(
+              "file paths \n",
+              "file: ",
+              req.file.path,
+              "\n",
+              "resized file: ",
+              resizedFilePath
+            );
+
+            await deleteFileWithRetry(resizedFilePath); // Remove the resized file if it was created
+            await deleteFileWithRetry(req.file.path);
+          } catch (deleteError) {
+            console.log("Error deleting file:", deleteError);
+          }
+        }
+      });
+    } catch (e) {
+      try {
+        await deleteFileWithRetry(req.file.path);
+        await deleteFileWithRetry(resizedFilePath);
+      } catch (deleteError) {
+        console.log("Error deleting file:", deleteError);
+      }
+      console.log(e.message);
+      res.status(500).json({ message: "error" });
+    }
+  }
+);
 
 // uploads multiple files to s3
 router.post(
