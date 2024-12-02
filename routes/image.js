@@ -11,10 +11,13 @@ const getAllFavourite = require("../controllers/image/getAllFavourite.js");
 const addToFavourite = require("../controllers/image/addToFavourite.js");
 const getAllDownloaded = require("../controllers/image/getAllDownloaded.js");
 const addToDownloaded = require("../controllers/image/addToDownloaded.js");
+const getSolutionById = require("../controllers/image/getSolutionById.js");
 
 const router = express.Router();
 
 router.get("/", userProtect, getAllGeneratedImages);
+
+router.get("/solution/:id", userProtect, getSolutionById);
 
 router.get("/favourite", userProtect, getAllFavourite);
 router.put("/add-to-favourite", userProtect, addToFavourite);

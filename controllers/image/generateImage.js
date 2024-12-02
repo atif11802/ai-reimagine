@@ -1,13 +1,13 @@
 const ImageGeneration = require("../../models/ImageGeneration.js");
+const Solution = require("../../models/Solution.js");
 const callReimagine = require("../../utils/callReimagine.js");
 const getUserCredits = require("../../utils/getUserCredits.js");
 
 module.exports = async (req, res) => {
   const {
-    imageUrl,
+    solutionId,
     maskJobId,
     masks,
-    maskCategory,
     spaceType,
     designTheme,
     colorPreference,
@@ -19,6 +19,29 @@ module.exports = async (req, res) => {
   } = req.body;
 
   try {
+    const solution = await Solution.findOne({
+      _id: solutionId,
+      user: req.user._id,
+    });
+
+    if (!solution) {
+      return res.status(404).json({ message: "Solution Not Found" });
+    }
+
+    const imageUrl = solution.url;
+
+    if (!imageUrl) {
+      return res.status(404).json({ message: "Image Not Found in solution" });
+    }
+
+    const maskCategory = solution.solution_name;
+
+    if (!maskCategory) {
+      return res
+        .status(404)
+        .json({ message: "Mask Category Not Found in solution" });
+    }
+
     let mask;
     let gettedMask = [];
 
@@ -73,6 +96,7 @@ module.exports = async (req, res) => {
       user: req.user._id,
       imageUrl: imageUrl,
       type: "Generate",
+      solutionId: solutionId,
       jobId: generateResponse?.data?.job_id,
       prompt: additionalPrompt,
       others: {
@@ -87,7 +111,7 @@ module.exports = async (req, res) => {
       },
       // credit logic
       creditsUsed:
-        Number(generateResponse?.data?.credits_consumed || 0) +
+        // Number(generateResponse?.data?.credits_consumed || 0) + only credit reduct stated
         Number(process.env.CREDITS_CONSUME_PER_REQUEST) * generationCount,
       status: "Processing",
     });

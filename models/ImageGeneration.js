@@ -22,6 +22,7 @@ const imageGenerationSchema = new mongoose.Schema({
   favourite: { type: Boolean, default: false },
   downloaded: { type: Boolean, default: false },
   project: { type: mongoose.Schema.Types.ObjectId, ref: "Project" },
+  solutionId: { type: mongoose.Schema.Types.ObjectId, ref: "Solution" },
   createdAt: { type: Date, default: Date.now },
 });
 
