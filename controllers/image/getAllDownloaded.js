@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     const skip = parseInt(req.query.skip) || 0;
     const limit = parseInt(req.query.limit) || 10;
 
-    const favouriteImages = await ImageGeneration.find({
+    const downloadedImages = await ImageGeneration.find({
       user: req?.user?._id,
       type: "Generate",
       downloaded: true,
@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
       downloaded: true,
     });
 
-    res.status(200).json({ favouriteImages, skip, limit, total });
+    res.status(200).json({ downloadedImages, skip, limit, total });
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }
