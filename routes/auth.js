@@ -28,15 +28,18 @@ router.post("/login", localLogin);
 
 // Google Authentication
 router.get(
-  "/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+	"/google",
+	passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 // Google Callback
 router.get(
-  "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
-  googleCallback
+	"/google/callback",
+	passport.authenticate("google", {
+		failureRedirect: `${process.env.FRONTEND_URL}/sign-in`, // Redirect to sign-in page
+		session: false,
+	}),
+	googleCallback
 );
 
 // Refresh Token Endpoint
@@ -48,10 +51,10 @@ router.get("/logout", logout);
 // get selt route for credits info
 router.get("/self", userProtect, getSelf);
 router.patch(
-  "/update-profile-pic",
-  userProtect,
-  uploadFile.single("image"),
-  updateProfilePic
+	"/update-profile-pic",
+	userProtect,
+	uploadFile.single("image"),
+	updateProfilePic
 );
 
 router.patch("/reset-password", userProtect, resetPassword);

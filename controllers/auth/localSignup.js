@@ -4,7 +4,6 @@ const sendEmail = require("../../utils/sendMail.js");
 const { generateAccessToken } = require("../../utils/jwt.js");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-
 /**
  * Signs up a new user using local credentials (email, password, name).
  *

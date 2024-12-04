@@ -1,25 +1,29 @@
-const User = require('../../models/User.js');
-const UserVerification = require('../../models/UserVerification.js');
-const { generateAccessToken, generateRefreshToken } = require('../../utils/jwt.js');
+const User = require("../../models/User.js");
+const UserVerification = require("../../models/UserVerification.js");
+const {
+	generateAccessToken,
+	generateRefreshToken,
+} = require("../../utils/jwt.js");
 
 module.exports = async (req, res) => {
 	const { token } = req.params;
 	try {
-		const userVerication = await UserVerification.findOne({
+		const userVerification = await UserVerification.findOne({
 			token,
 			isExpired: false,
-		}).populate('user');
+		}).populate("user");
 
-		if (!userVerication)
-			return res.status(404).json({ message: 'Invalid or expired token' });
+		if (!userVerification) {
+			throw new Error("Invalid or expired token");
+		}
 
-		const user = await User.findById(userVerication.user._id);
-		if (!user) return res.status(404).json({ message: 'User not found' });
+		const user = await User.findById(userVerification.user._id);
+		if (!user) return res.status(404).json({ message: "User not found" });
 
 		user.isVerified = true;
-		userVerication.isExpired = true;
+		userVerification.isExpired = true;
 
-		await userVerication.save();
+		await userVerification.save();
 		const accessToken = generateAccessToken(user);
 		const refreshToken = generateRefreshToken(user);
 
@@ -27,12 +31,15 @@ module.exports = async (req, res) => {
 		user.refreshToken = refreshToken;
 		await user.save();
 
-		return res.status(201).json({
-			message: 'User registered successfully',
+		return res.status(200).json({
+			message: "User registered successfully",
 			accessToken,
 			refreshToken,
 		});
 	} catch (err) {
+		if (err instanceof Error) {
+			return res.status(400).json({ message: err.message });
+		}
 		return res.status(500).json({ message: err.message });
 	}
 };
