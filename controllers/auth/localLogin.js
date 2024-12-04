@@ -1,21 +1,35 @@
-const passport = require('passport');
+const User = require("../../models/User.js");
 const {
 	generateAccessToken,
 	generateRefreshToken,
-} = require('../../utils/jwt.js');
+} = require("../../utils/jwt.js");
+const bcrypt = require("bcryptjs");
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res) => {
 	// Check if credentials are provided
-	if (!req.body.email || !req.body.password) {
-		return res.status(400).json({ message: 'Missing credentials' });
-	}
+	try {
+		const { email, password } = req.body;
 
-	passport.authenticate('local', async (err, user, info) => {
-		if (err) return res.status(500).json({ message: err });
-		console.log(info);
-		if (!user) return res.status(401).json({ message: 'Invalid credentials' });
-		if (!user.isVerified)
-			return res.status(401).json({ message: 'Please verify your email' });
+		console.log({ email, password });
+
+		if (!email || !password) {
+			throw new Error("Email and password are required");
+		}
+
+		const user = await User.findOne({ email });
+		if (!user) {
+			throw new Error("User not found");
+		}
+
+		const isPasswordValid = await user.comparePassword(password);
+
+		if (!isPasswordValid) {
+			throw new Error("Invalid password");
+		}
+
+		if (!user.isVerified) {
+			throw new Error("User is not verified");
+		}
 
 		const accessToken = generateAccessToken(user);
 		const refreshToken = generateRefreshToken(user);
@@ -24,10 +38,10 @@ module.exports = (req, res, next) => {
 		user.refreshToken = refreshToken;
 		await user.save();
 
-		return res.json({
-			accessToken,
-			refreshToken,
-		});
-	})(req, res, next);
+		return res.json({ accessToken, refreshToken });
+	} catch (error) {
+		if (error instanceof Error)
+			return res.status(400).json({ message: error.message });
+		return res.status(500).json({ message: "Internal server error" });
+	}
 };
-
