@@ -20,11 +20,14 @@ const imageRoute = require("./routes/image.js");
 const userRoute = require("./routes/user.js");
 const projectRoute = require("./routes/project.js");
 
+const corsOptions = {
+	origin: ["http://localhost:3000", "https://roomify.aiwritingwizard.net"],
+};
 // app initiate
 const app = express();
 
 //global middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(morgan("dev"));
 
@@ -37,16 +40,16 @@ require("./config/passport.js")(passport);
 app.use(passport.initialize());
 
 app.use(
-  expressSession({
-    secret: process.env.JWT_SECRET,
-    resave: true,
-    saveUninitialized: true,
-  })
+	expressSession({
+		secret: process.env.JWT_SECRET,
+		resave: true,
+		saveUninitialized: true,
+	})
 );
 
 // Database connection
 if (process.env.ENVIRONMENT !== "TEST") {
-  connectDB();
+	connectDB();
 }
 
 // Routes
