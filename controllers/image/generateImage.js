@@ -138,9 +138,20 @@ module.exports = async (req, res) => {
     }
 
     await newJob.save();
+
+    const solutionMedia = solution?.generated_image.length
+      ? solution.generated_image
+      : [];
+
+    solutionMedia.push(newJob._id);
+
+    solution.generated_image = solutionMedia;
+    await solution.save();
+
     res.status(201).json({
       message: "Image generation started",
       jobId: generateResponse?.data?.job_id,
+      solutionId: solutionId,
     });
   } catch (error) {
     if (error?.name === "AxiosError")
