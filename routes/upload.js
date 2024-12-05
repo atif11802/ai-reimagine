@@ -148,7 +148,7 @@ router.post(
   uploadFile.single("image"),
   async (req, res) => {
     // configuring the AWS environment
-    const { solutionName } = req.body;
+    const { solutionName, maskCategory } = req.body;
 
     AWS.config.update({
       region: process.env.S3_REGION,
@@ -205,6 +205,7 @@ router.post(
               user: req.user._id,
               url: data.Location,
               solution_name: solutionName,
+              mask_category: maskCategory,
             });
             await solution.save();
 
@@ -212,6 +213,7 @@ router.post(
 
             const responseSolution = {
               solutionName: solution.solution_name,
+              maskCategory: solution.mask_category,
               url: solution.url,
               _id: solution._id,
               createdAt: solution.createdAt,
