@@ -7,6 +7,9 @@ const SolutionSchema = new mongoose.Schema(
 		mask_category: { type: String },
 		url: { type: String, required: true },
 		mask_job_id: { type: String },
+		generated_job_id: [
+			{ type: mongoose.Schema.Types.ObjectId, ref: "ImageGeneration" },
+		],
 	},
 
 	{
