@@ -42,7 +42,15 @@ module.exports = async (req, res) => {
 
     const data = projects.slice(skip, limit);
 
-    res.status(200).json({ projects: data, skip, limit, total });
+    const result = data.map((proj) => {
+      const plainProj = proj.toObject();
+      return {
+        ...plainProj,
+        media_count: proj?.media?.length,
+      };
+    });
+
+    res.status(200).json({ projects: result, skip, limit, total });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });

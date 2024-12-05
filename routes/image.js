@@ -12,12 +12,19 @@ const addToFavourite = require("../controllers/image/addToFavourite.js");
 const getAllDownloaded = require("../controllers/image/getAllDownloaded.js");
 const addToDownloaded = require("../controllers/image/addToDownloaded.js");
 const getSolutionById = require("../controllers/image/getSolutionById.js");
+const deleteGeneration = require("../controllers/image/deleteGeneration.js");
 
 const router = express.Router();
 
 router.get("/", userProtect, getAllGeneratedImages);
 
 router.get("/solution/:id", userProtect, getSolutionById);
+
+router.delete(
+  "/image-generation/:imageGenerationId",
+  userProtect,
+  deleteGeneration
+);
 
 router.get("/favourite", userProtect, getAllFavourite);
 router.put("/update-favourite", userProtect, addToFavourite);
