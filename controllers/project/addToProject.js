@@ -4,6 +4,7 @@ const Project = require("../../models/Project.js");
 
 module.exports = async (req, res) => {
   try {
+    // if already in one project remove from that
     const { imageGenerationId, projectId, projectName } = req.body;
 
     if (!mongoose.isValidObjectId(imageGenerationId)) {
@@ -68,11 +69,26 @@ module.exports = async (req, res) => {
 
     await project.save();
 
+    // remove from previous project
+    const previousProjectId = imageGenerated.project;
+
+    if (previousProjectId) {
+      const previousProject = await Project.findById(previousProjectId);
+      previousProject.media = previousProject.media.filter(
+        (id) => id.toString() !== imageGenerated._id.toString()
+      );
+      await previousProject.save();
+
+      if (previousProject.media.length === 0) {
+        await Project.findByIdAndDelete(previousProjectId);
+      }
+    }
+
     imageGenerated.project = project?._id;
 
     await imageGenerated.save();
 
-    res.status(201).json({ message: "Added to project", project });
+    return res.status(201).json({ message: "Added to project", project });
   } catch (error) {
     console.log(error.code);
     if (error.code === 11000) {
