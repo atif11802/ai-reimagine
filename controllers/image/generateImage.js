@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
     maskingElement,
     generationCount = 1,
     additionalPrompt,
+    maskCategory,
   } = req.body;
 
   try {
@@ -34,21 +35,11 @@ module.exports = async (req, res) => {
       return res.status(404).json({ message: "Image Not Found in solution" });
     }
 
-    const maskCategory = solution.solution_name;
-
-    if (!maskCategory) {
-      return res
-        .status(404)
-        .json({ message: "Mask Category Not Found in solution" });
-    }
-
     let mask;
     let gettedMask = [];
 
     if (maskJobId) {
       mask = await ImageGeneration.findOne({ jobId: maskJobId });
-      // .filter((item) => item.category.includes(maskCategory))
-      // gettedMask = mask?.maskUrls.map((item) => item.url);
 
       mask?.maskUrls.forEach((item) => {
         if (maskCategory === "architectural") {
@@ -71,17 +62,21 @@ module.exports = async (req, res) => {
     }
 
     const data = {
+      ...(designTheme ? { design_theme: designTheme } : {}),
+      ...(spaceType ? { space_type: spaceType } : {}),
+      ...(maskCategory ? { mask_category: maskCategory } : {}),
+      ...(colorPreference ? { color_preference: colorPreference } : {}),
+      ...(materialPreference
+        ? { material_preference: materialPreference }
+        : {}),
+      ...(maskingElement ? { masking_element: maskingElement } : {}),
+      ...(landscapingPreference
+        ? { landscaping_preference: landscapingPreference }
+        : {}),
+      ...(additionalPrompt ? { additional_prompt: additionalPrompt } : {}),
       image_url: imageUrl,
       mask_urls: mask?.maskUrls ? gettedMask : masks,
-      mask_category: maskCategory,
-      space_type: spaceType,
-      design_theme: designTheme,
-      color_preference: colorPreference,
-      material_preference: materialPreference,
-      landscaping_preference: landscapingPreference,
-      masking_element: maskingElement,
       generation_count: generationCount,
-      additional_prompt: additionalPrompt,
       webhook_url: `${process.env.BACKEND_URL}/api/image/webhook/generate`,
     };
     console.log("data: ", data);
@@ -91,6 +86,8 @@ module.exports = async (req, res) => {
       "POST",
       data
     );
+
+    console.log({ generateResponse });
 
     const newJob = new ImageGeneration({
       user: req.user._id,
@@ -109,14 +106,10 @@ module.exports = async (req, res) => {
         landscapingPreference,
         generationCount,
       },
-      // credit logic
       creditsUsed:
-        // Number(generateResponse?.data?.credits_consumed || 0) + only credit reduct stated
         Number(process.env.CREDITS_CONSUME_PER_REQUEST) * generationCount,
       status: "Processing",
     });
-
-    //process space type code to name
 
     const response = await callReimagine("/get-space-type-list", "GET");
 
