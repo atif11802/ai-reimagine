@@ -20,7 +20,7 @@ router.get("/", userProtect, getAllGeneratedImages);
 router.get("/solution/:id", userProtect, getSolutionById);
 
 router.get("/favourite", userProtect, getAllFavourite);
-router.put("/add-to-favourite", userProtect, addToFavourite);
+router.put("/update-favourite", userProtect, addToFavourite);
 router.get("/downloaded", userProtect, getAllDownloaded);
 router.put("/add-to-downloaded", userProtect, addToDownloaded);
 
