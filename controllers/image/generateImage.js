@@ -116,6 +116,27 @@ module.exports = async (req, res) => {
       status: "Processing",
     });
 
+    //process space type code to name
+
+    const response = await callReimagine("/get-space-type-list", "GET");
+
+    if (spaceType && response?.status === "success") {
+      const allFields = [
+        ...response?.data?.exterior_spaces,
+        ...response?.data?.interior_spaces,
+      ];
+
+      const spaceTypeName = allFields.find((obj) => {
+        if (obj[spaceType]) {
+          return obj;
+        }
+      });
+
+      if (spaceTypeName) {
+        newJob.others.spaceTypeName = spaceTypeName[spaceType];
+      }
+    }
+
     await newJob.save();
     res.status(201).json({
       message: "Image generation started",
