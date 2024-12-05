@@ -3,7 +3,7 @@
 		"_postman_id": "6504263d-abb1-4ebd-b003-ac3a942def77",
 		"name": "BEM Backend API",
 		"description": "Postman collection for BEM Backend API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "38502630"
 	},
 	"item": [
@@ -24,7 +24,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/auth/signup"
+						"url": {
+							"raw": "{{base_url}}/api/auth/signup",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
 					},
 					"response": [
 						{
@@ -41,7 +51,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/auth/signup"
+								"url": {
+									"raw": "{{base_url}}/api/auth/signup",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"signup"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -112,7 +132,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/auth/login"
+						"url": {
+							"raw": "{{base_url}}/api/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
 					},
 					"response": [
 						{
@@ -129,7 +159,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/auth/login"
+								"url": {
+									"raw": "{{base_url}}/api/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -193,7 +233,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/auth/reset-password"
+						"url": {
+							"raw": "{{base_url}}/api/auth/reset-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-password"
+							]
+						}
 					},
 					"response": []
 				},
@@ -260,7 +310,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/auth/set-forgot-password"
+						"url": {
+							"raw": "{{base_url}}/api/auth/set-forgot-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"set-forgot-password"
+							]
+						}
 					},
 					"response": []
 				},
@@ -269,7 +329,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/auth/logout"
+						"url": {
+							"raw": "{{base_url}}/api/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
 					},
 					"response": []
 				},
@@ -278,7 +348,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/auth/google"
+						"url": {
+							"raw": "{{base_url}}/api/auth/google",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"google"
+							]
+						}
 					},
 					"response": []
 				},
@@ -287,7 +367,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/auth/google/callback"
+						"url": {
+							"raw": "{{base_url}}/api/auth/google/callback",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"google",
+								"callback"
+							]
+						}
 					},
 					"response": []
 				},
@@ -327,7 +418,17 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": "{{base_url}}/api/auth/self"
+						"url": {
+							"raw": "{{base_url}}/api/auth/self",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"self"
+							]
+						}
 					},
 					"response": [
 						{
@@ -340,7 +441,17 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": "{{base_url}}/api/auth/self"
+								"url": {
+									"raw": "{{base_url}}/api/auth/self",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"self"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -392,7 +503,17 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": "{{base_url}}/api/auth/self"
+								"url": {
+									"raw": "{{base_url}}/api/auth/self",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"self"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -441,9 +562,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_user}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_user}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -456,7 +581,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/auth/refresh-token"
+						"url": {
+							"raw": "{{base_url}}/api/auth/refresh-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh-token"
+							]
+						}
 					},
 					"response": [
 						{
@@ -473,7 +608,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/auth/refresh-token"
+								"url": {
+									"raw": "{{base_url}}/api/auth/refresh-token",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"refresh-token"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -526,9 +671,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PATCH",
 						"header": [],
@@ -542,7 +691,18 @@
 								}
 							]
 						},
-						"url": "{{base_url}}/api/auth//update-profile-pic"
+						"url": {
+							"raw": "{{base_url}}/api/auth//update-profile-pic",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"",
+								"update-profile-pic"
+							]
+						}
 					},
 					"response": [
 						{
@@ -559,7 +719,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/auth/refresh-token"
+								"url": {
+									"raw": "{{base_url}}/api/auth/refresh-token",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"refresh-token"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -617,9 +787,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_user}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_user}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [
@@ -637,7 +811,16 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/transaction"
+						"url": {
+							"raw": "{{base_url}}/api/transaction",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
 					},
 					"response": [
 						{
@@ -659,7 +842,16 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/transaction"
+								"url": {
+									"raw": "{{base_url}}/api/transaction",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transaction"
+									]
+								}
 							},
 							"status": "Internal Server Error",
 							"code": 500,
@@ -720,7 +912,16 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/transaction"
+								"url": {
+									"raw": "{{base_url}}/api/transaction",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transaction"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -785,7 +986,16 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/transaction"
+								"url": {
+									"raw": "{{base_url}}/api/transaction",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transaction"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -850,7 +1060,16 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/transaction"
+								"url": {
+									"raw": "{{base_url}}/api/transaction",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transaction"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -943,9 +1162,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [
@@ -954,7 +1177,16 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": "{{base_url}}/api/transaction",
+						"url": {
+							"raw": "{{base_url}}/api/transaction",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"transaction"
+							]
+						},
 						"description": "in query params  \nskip & limit (number)"
 					},
 					"response": [
@@ -968,7 +1200,16 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": "{{base_url}}/api/transaction"
+								"url": {
+									"raw": "{{base_url}}/api/transaction",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"transaction"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -1061,9 +1302,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_user}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_user}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [
@@ -1210,13 +1455,28 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/admin/transaction/"
+						"url": {
+							"raw": "{{base_url}}/api/admin/transaction/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"transaction",
+								""
+							]
+						}
 					},
 					"response": [
 						{
@@ -1224,7 +1484,18 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/admin/transaction/"
+								"url": {
+									"raw": "{{base_url}}/api/admin/transaction/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"transaction",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -1317,9 +1588,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -1462,9 +1737,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -1630,9 +1909,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [
@@ -1641,7 +1924,17 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": "{{base_url}}/api/admin/user",
+						"url": {
+							"raw": "{{base_url}}/api/admin/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"user"
+							]
+						},
 						"description": "in query params\nskip & limit (number)"
 					},
 					"response": [
@@ -1655,7 +1948,17 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": "{{base_url}}/api/admin/user"
+								"url": {
+									"raw": "{{base_url}}/api/admin/user",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"user"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -1708,9 +2011,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [
@@ -1819,9 +2126,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [
@@ -1944,9 +2255,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [
@@ -1964,7 +2279,16 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/user"
+						"url": {
+							"raw": "{{base_url}}/api/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
 					},
 					"response": [
 						{
@@ -2052,9 +2376,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [
@@ -2281,7 +2609,16 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/plan",
+						"url": {
+							"raw": "{{base_url}}/api/plan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"plan"
+							]
+						},
 						"description": "in query params\nskip & limit (number)"
 					},
 					"response": [
@@ -2290,7 +2627,16 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/plan"
+								"url": {
+									"raw": "{{base_url}}/api/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"plan"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -2428,9 +2774,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [
@@ -2448,7 +2798,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/admin/plan"
+						"url": {
+							"raw": "{{base_url}}/api/admin/plan",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"plan"
+							]
+						}
 					},
 					"response": [
 						{
@@ -2470,7 +2830,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/admin/plan"
+								"url": {
+									"raw": "{{base_url}}/api/admin/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"plan"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -2531,7 +2901,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/admin/plan"
+								"url": {
+									"raw": "{{base_url}}/api/admin/plan",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"plan"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -2624,9 +3004,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [
@@ -2789,7 +3173,17 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": "{{base_url}}/api/admin/promo",
+						"url": {
+							"raw": "{{base_url}}/api/admin/promo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"promo"
+							]
+						},
 						"description": "in query params\nskip & limit (number)"
 					},
 					"response": [
@@ -2803,7 +3197,17 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": "{{base_url}}/api/admin/promo"
+								"url": {
+									"raw": "{{base_url}}/api/admin/promo",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"promo"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -2960,9 +3364,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [
@@ -2980,7 +3388,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/admin/promo"
+						"url": {
+							"raw": "{{base_url}}/api/admin/promo",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"promo"
+							]
+						}
 					},
 					"response": [
 						{
@@ -3002,7 +3420,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/admin/promo"
+								"url": {
+									"raw": "{{base_url}}/api/admin/promo",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"promo"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -3199,9 +3627,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [
@@ -3210,7 +3642,17 @@
 								"value": "Bearer {{access_token}}"
 							}
 						],
-						"url": "{{base_url}}/api/admin/admins",
+						"url": {
+							"raw": "{{base_url}}/api/admin/admins",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"admins"
+							]
+						},
 						"description": "in query params\nskip & limit (number)"
 					},
 					"response": [
@@ -3224,7 +3666,17 @@
 										"value": "Bearer {{access_token}}"
 									}
 								],
-								"url": "{{base_url}}/api/admin/admins"
+								"url": {
+									"raw": "{{base_url}}/api/admin/admins",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"admins"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -3273,9 +3725,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [
@@ -3442,9 +3898,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [
@@ -3462,7 +3922,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/admin/create"
+						"url": {
+							"raw": "{{base_url}}/api/admin/create",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"create"
+							]
+						}
 					},
 					"response": [
 						{
@@ -3484,7 +3954,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/admin/create"
+								"url": {
+									"raw": "{{base_url}}/api/admin/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"create"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -3593,7 +4073,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/admin/create"
+								"url": {
+									"raw": "{{base_url}}/api/admin/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"create"
+									]
+								}
 							},
 							"status": "Bad Request",
 							"code": 400,
@@ -3695,9 +4185,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_admin}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_admin}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -3710,7 +4204,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/admin/credit"
+						"url": {
+							"raw": "{{base_url}}/api/admin/credit",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"credit"
+							]
+						}
 					},
 					"response": [
 						{
@@ -3727,7 +4231,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/admin/credit"
+								"url": {
+									"raw": "{{base_url}}/api/admin/credit",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"credit"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -3829,9 +4343,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -3845,7 +4363,69 @@
 								}
 							]
 						},
-						"url": "{{base_url}}/api/upload/"
+						"url": {
+							"raw": "{{base_url}}/api/upload/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"upload",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload solution",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/mdant/Downloads/test 1.jpg"
+								},
+								{
+									"key": "solutionName",
+									"value": "landscaping",
+									"description": "//only three valid types",
+									"type": "text"
+								},
+								{
+									"key": "maskCategory",
+									"value": "my mask catagory",
+									"description": "string",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/upload/solution",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"upload",
+								"solution"
+							]
+						},
+						"description": "```\nmustkey: [image, solutionName]\nsolutionName = maskCatagory\n\n ```"
 					},
 					"response": []
 				},
@@ -3854,9 +4434,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -3870,7 +4454,17 @@
 								}
 							]
 						},
-						"url": "{{base_url}}/api/upload/profile-picture"
+						"url": {
+							"raw": "{{base_url}}/api/upload/profile-picture",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"upload",
+								"profile-picture"
+							]
+						}
 					},
 					"response": []
 				},
@@ -3879,9 +4473,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{auth_user}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{auth_user}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
@@ -3898,45 +4496,17 @@
 								}
 							]
 						},
-						"url": "{{base_url}}/api/upload/multiple"
-					},
-					"response": []
-				},
-				{
-					"name": "Upload solution",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/C:/Users/mdant/Downloads/test 1.jpg"
-								},
-								{
-									"key": "solutionName",
-									"value": "furnishing",
-									"description": "//only three valid types",
-									"type": "text"
-								},
-								{
-									"key": "maskCategory",
-									"value": "my mask catagory1",
-									"description": "string",
-									"type": "text"
-								}
+						"url": {
+							"raw": "{{base_url}}/api/upload/multiple",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"upload",
+								"multiple"
 							]
-						},
-						"url": "{{base_url}}/api/upload/solution",
-						"description": "```\nmustkey: [image, solutionName]\nsolutionName = maskCatagory\n\n ```"
+						}
 					},
 					"response": []
 				}
@@ -3946,26 +4516,194 @@
 			"name": "Image",
 			"item": [
 				{
-					"name": "Generate Image",
+					"name": "Create Mask",
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"solutionId\": \"6751aed63871b70161f41250\",\r\n    \"maskJobId\": \"6751aed660399d94b56def3d\",\r\n    // \"masks\": [\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/04b5c7b1-8a38-49a7-9eb2-54901ddd9ad1_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/2c069422-23e8-4fa6-b461-9e064c67db69_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/f2dc5adc-fe86-4437-a5e8-4e595b27dc43_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/1051eb87-dc86-4c08-a4fb-5912528b9e0e_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0432561f-3de5-4996-9c35-1e66ed58ee56_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/de7074c6-6f76-4a8d-869d-79b88f3a5096_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/738727bf-489c-4566-9ede-67cfc847ce28_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/711ea54d-fe2b-458f-94e5-5a7bf2253629_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0c69456b-56c4-42d0-9000-bd8c37f01930_segment.png\"\r\n    // ],\r\n\r\n    // \"spaceType\": \"ST-INT-011\", //for living room\r\n    \"spaceType\": \"ST-INT-003\", // out door living for \r\n    // \"designTheme\": \"DT-INT-010\",\r\n    // \"colorPreference\": \"blue\",\r\n    // \"materialPreference\": \"wood\",\r\n    // landscaping\r\n    \"landscapingPreference\": \"Plants\",\r\n    // \"generationCount\": 1,\r\n\r\n    // for architecture must key\r\n    // \"maskingElement\":\"wall\",\r\n    \"additionalPrompt\": \"EMPTY_YOUR_SPACE\"\r\n}",
+							"raw": "{\r\n   \r\n   \"solutionId\": \"67515b509f31aab750a08443\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{base_url}}/api/image/generate-image",
+						"url": {
+							"raw": "{{base_url}}/api/image/create-mask",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"create-mask"
+							]
+						},
+						"description": "mask key : solutionId , which is got when uploaded solution."
+					},
+					"response": [
+						{
+							"name": "Create Mask",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/image/create-mask",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"create-mask"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"46-tvVZni6BIQ/N1okcMcReQo6jUz4\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AZVYtrsxFePBpzFn0tPseLxzC6kaWpWCA.p%2B6vTOqxyWBCf6eZUioa8wlixISu3iqtEQrfvnsi4pw; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Sep 2024 04:51:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Mask creation started\",\n    \"jobId\": \"66fa2e3fffdb8a1d94a808b5\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Generate Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"solutionId\": \"67515b509f31aab750a08443\",\r\n    \"maskJobId\": \"67515d0cebed6289b8f51418\",\r\n    // \"masks\": [\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/04b5c7b1-8a38-49a7-9eb2-54901ddd9ad1_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/2c069422-23e8-4fa6-b461-9e064c67db69_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/f2dc5adc-fe86-4437-a5e8-4e595b27dc43_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/1051eb87-dc86-4c08-a4fb-5912528b9e0e_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0432561f-3de5-4996-9c35-1e66ed58ee56_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/de7074c6-6f76-4a8d-869d-79b88f3a5096_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/738727bf-489c-4566-9ede-67cfc847ce28_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/711ea54d-fe2b-458f-94e5-5a7bf2253629_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0c69456b-56c4-42d0-9000-bd8c37f01930_segment.png\"\r\n    // ],\r\n\r\n    // \"spaceType\": \"ST-INT-011\", //for living room\r\n    \"spaceType\": \"ST-EXT-001\", // out door living for 'maskCategory: ' landscaping\r\n    // \"designTheme\": \"DT-INT-010\",\r\n    // \"colorPreference\": \"blue\",\r\n    // \"materialPreference\": \"wood\",\r\n    // landscaping\r\n    \"landscapingPreference\": \"Plants\",\r\n    // \"generationCount\": 1,\r\n\r\n    // for architecture must key\r\n    // \"maskingElement\":\"wall\",\r\n    \"additionalPrompt\": \"EMPTY_YOUR_SPACE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/image/generate-image",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"generate-image"
+							]
+						},
 						"description": "> for **architectuiral - maskCategory, must key:** maskingElement. \n  \n\n``` javascript\nmaskCategory is saved in solution in previous \nstep or creating solution.\nspaceType is always required. choose according \nto maskCategory.\nnote: don't mix spaceType: living-room code\n with category: landscape.\nFor maskCategory: \"architectural\" \nmaskingElement is must.\nfor maskingElement: \nflood (also choose:  materialPreference)\nfor maskCategory: \"landscaping\" \nlandscapingPreference is considered\nfor detail overview, follow the link: \nhttps://docs.reimaginehome.\nai/#231a061e-ca20-49de-a1f1-cffe24c6ed32\n\n ```"
 					},
 					"response": [
@@ -3983,7 +4721,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/image/generate-image"
+								"url": {
+									"raw": "{{base_url}}/api/image/generate-image",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"generate-image"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -4083,7 +4831,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/image/generate-image"
+								"url": {
+									"raw": "{{base_url}}/api/image/generate-image",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"generate-image"
+									]
+								}
 							},
 							"status": "Created",
 							"code": 201,
@@ -4183,7 +4941,17 @@
 										}
 									}
 								},
-								"url": "{{base_url}}/api/image/generate-image"
+								"url": {
+									"raw": "{{base_url}}/api/image/generate-image",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"generate-image"
+									]
+								}
 							},
 							"status": "Forbidden",
 							"code": 403,
@@ -4276,31 +5044,295 @@
 					]
 				},
 				{
-					"name": "solution by id",
+					"name": "test webhook generate",
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"data\": {\r\n// \"job_id\": \"674c5d75efe7602138087e54\", \r\n// \"job_status\": \"done\",\r\n// \"generated_images\":  \"https://roomlify.s3.ap-south-1.amazonaws.com/1733056113166_test-generated1.jpg\"\r\n\r\n\"job_id\": \"674f6419eeaf4771ac745c40\",\r\n        \"job_status\": \"done\",\r\n        \"generated_images\": \r\n            \"https://cdn.reimaginehome.ai/prod/gen/99780890-6ae8-49a3-a256-6cc43de0e8a6.png\"\r\n    \r\n\r\n}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
 							}
 						},
-						"method": "GET",
-						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/image/solution/:id",
+							"raw": "{{base_url}}/api/image/webhook/generate",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"image",
-								"solution",
-								":id"
+								"webhook",
+								"generate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Generate Image",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\",\r\n    // \"maskJobId\": \"12345\",\r\n    \"masks\": [\r\n        \"https://cdn.reimaginehome.ai/prod/mask/04b5c7b1-8a38-49a7-9eb2-54901ddd9ad1_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/2c069422-23e8-4fa6-b461-9e064c67db69_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/f2dc5adc-fe86-4437-a5e8-4e595b27dc43_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/1051eb87-dc86-4c08-a4fb-5912528b9e0e_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/0432561f-3de5-4996-9c35-1e66ed58ee56_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/de7074c6-6f76-4a8d-869d-79b88f3a5096_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/738727bf-489c-4566-9ede-67cfc847ce28_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/711ea54d-fe2b-458f-94e5-5a7bf2253629_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/0c69456b-56c4-42d0-9000-bd8c37f01930_segment.png\"\r\n    ],\r\n    \"maskCategory\": \"furnishing\",\r\n    \"spaceType\": \"ST-INT-011\",\r\n    \"designTheme\": \"DT-INT-010\",\r\n    // \"colorPreference\": \"blue\",\r\n    \"materialPreference\": \"wood\",\r\n    \"landscapingPreference\": \"minimalist\",\r\n    \"generationCount\": 1,\r\n    \"additionalPrompt\": \"Remove all the furnitures\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/image/generate-image",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"generate-image"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-fY23kZIM5B+s+bEybf7LNyKEVp8\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Sep 2024 05:59:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Image generation started\",\n    \"jobId\": \"66fa3e54442f84458ee82071\"\n}"
+						},
+						{
+							"name": "Empty Your Space Example",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\",\r\n    \"maskJobId\": \"66fad13e3e6dd10df4a5786b\",\r\n    // \"masks\": [\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/04b5c7b1-8a38-49a7-9eb2-54901ddd9ad1_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/2c069422-23e8-4fa6-b461-9e064c67db69_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/f2dc5adc-fe86-4437-a5e8-4e595b27dc43_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/1051eb87-dc86-4c08-a4fb-5912528b9e0e_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0432561f-3de5-4996-9c35-1e66ed58ee56_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/de7074c6-6f76-4a8d-869d-79b88f3a5096_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/738727bf-489c-4566-9ede-67cfc847ce28_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/711ea54d-fe2b-458f-94e5-5a7bf2253629_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0c69456b-56c4-42d0-9000-bd8c37f01930_segment.png\"\r\n    // ],\r\n    \"maskCategory\": \"furnishing\",\r\n    \"spaceType\": \"ST-INT-003\", //for empty your space\r\n    // \"designTheme\": \"DT-INT-010\",\r\n    // \"colorPreference\": \"blue\",\r\n    // \"materialPreference\": \"wood\",\r\n    // \"landscapingPreference\": \"minimalist\",\r\n    \"generationCount\": 1,\r\n    \"additionalPrompt\": \"EMPTY_YOUR_SPACE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/api/image/generate-image",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"generate-image"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-LKQ5TOKbneB5AQ19LKjqScQT6X0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 30 Sep 2024 16:29:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Image generation started\",\n    \"jobId\": \"66fad1d33e6dd10df4a578bc\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Generated Image By JobId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/image/generate-image/:jobId",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"generate-image",
+								":jobId"
 							],
 							"variable": [
 								{
-									"key": "id",
-									"value": "6751aed63871b70161f41250"
+									"key": "jobId",
+									"value": "67515d7cac9cfe819668beb5"
 								}
 							]
 						}
@@ -4531,386 +5563,35 @@
 					]
 				},
 				{
-					"name": "Create Mask depricated",
+					"name": "solution by id",
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \r\n   \"solutionId\": \"67515b509f31aab750a08443\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
 								}
-							}
-						},
-						"url": "{{base_url}}/api/image/create-mask",
-						"description": "mask key : solutionId , which is got when uploaded solution."
-					},
-					"response": [
-						{
-							"name": "Create Mask",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{base_url}}/api/image/create-mask"
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Content-Security-Policy",
-									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-								},
-								{
-									"key": "Cross-Origin-Opener-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Cross-Origin-Resource-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Origin-Agent-Cluster",
-									"value": "?1"
-								},
-								{
-									"key": "Referrer-Policy",
-									"value": "no-referrer"
-								},
-								{
-									"key": "Strict-Transport-Security",
-									"value": "max-age=15552000; includeSubDomains"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-DNS-Prefetch-Control",
-									"value": "off"
-								},
-								{
-									"key": "X-Download-Options",
-									"value": "noopen"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "SAMEORIGIN"
-								},
-								{
-									"key": "X-Permitted-Cross-Domain-Policies",
-									"value": "none"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "0"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "70"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"46-tvVZni6BIQ/N1okcMcReQo6jUz4\""
-								},
-								{
-									"key": "Set-Cookie",
-									"value": "connect.sid=s%3AZVYtrsxFePBpzFn0tPseLxzC6kaWpWCA.p%2B6vTOqxyWBCf6eZUioa8wlixISu3iqtEQrfvnsi4pw; Path=/; HttpOnly"
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 30 Sep 2024 04:51:14 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"Mask creation started\",\n    \"jobId\": \"66fa2e3fffdb8a1d94a808b5\"\n}"
-						}
-					]
-				},
-				{
-					"name": "test webhook generate",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"data\": {\r\n// \"job_id\": \"674c5d75efe7602138087e54\", \r\n// \"job_status\": \"done\",\r\n// \"generated_images\":  \"https://roomlify.s3.ap-south-1.amazonaws.com/1733056113166_test-generated1.jpg\"\r\n\r\n\"job_id\": \"674f6419eeaf4771ac745c40\",\r\n        \"job_status\": \"done\",\r\n        \"generated_images\": \r\n            \"https://cdn.reimaginehome.ai/prod/gen/99780890-6ae8-49a3-a256-6cc43de0e8a6.png\"\r\n    \r\n\r\n}}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{base_url}}/api/image/webhook/generate"
-					},
-					"response": [
-						{
-							"name": "Generate Image",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\",\r\n    // \"maskJobId\": \"12345\",\r\n    \"masks\": [\r\n        \"https://cdn.reimaginehome.ai/prod/mask/04b5c7b1-8a38-49a7-9eb2-54901ddd9ad1_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/2c069422-23e8-4fa6-b461-9e064c67db69_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/f2dc5adc-fe86-4437-a5e8-4e595b27dc43_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/1051eb87-dc86-4c08-a4fb-5912528b9e0e_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/0432561f-3de5-4996-9c35-1e66ed58ee56_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/de7074c6-6f76-4a8d-869d-79b88f3a5096_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/738727bf-489c-4566-9ede-67cfc847ce28_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/711ea54d-fe2b-458f-94e5-5a7bf2253629_segment.png\",\r\n        \"https://cdn.reimaginehome.ai/prod/mask/0c69456b-56c4-42d0-9000-bd8c37f01930_segment.png\"\r\n    ],\r\n    \"maskCategory\": \"furnishing\",\r\n    \"spaceType\": \"ST-INT-011\",\r\n    \"designTheme\": \"DT-INT-010\",\r\n    // \"colorPreference\": \"blue\",\r\n    \"materialPreference\": \"wood\",\r\n    \"landscapingPreference\": \"minimalist\",\r\n    \"generationCount\": 1,\r\n    \"additionalPrompt\": \"Remove all the furnitures\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{base_url}}/api/image/generate-image"
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Content-Security-Policy",
-									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-								},
-								{
-									"key": "Cross-Origin-Opener-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Cross-Origin-Resource-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Origin-Agent-Cluster",
-									"value": "?1"
-								},
-								{
-									"key": "Referrer-Policy",
-									"value": "no-referrer"
-								},
-								{
-									"key": "Strict-Transport-Security",
-									"value": "max-age=15552000; includeSubDomains"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-DNS-Prefetch-Control",
-									"value": "off"
-								},
-								{
-									"key": "X-Download-Options",
-									"value": "noopen"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "SAMEORIGIN"
-								},
-								{
-									"key": "X-Permitted-Cross-Domain-Policies",
-									"value": "none"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "0"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "73"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"49-fY23kZIM5B+s+bEybf7LNyKEVp8\""
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 30 Sep 2024 05:59:55 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"Image generation started\",\n    \"jobId\": \"66fa3e54442f84458ee82071\"\n}"
-						},
-						{
-							"name": "Empty Your Space Example",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"imageUrl\": \"https://roomlify.s3.ap-south-1.amazonaws.com/1727671048690_pexels-emrecan-2079246.jpg\",\r\n    \"maskJobId\": \"66fad13e3e6dd10df4a5786b\",\r\n    // \"masks\": [\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/04b5c7b1-8a38-49a7-9eb2-54901ddd9ad1_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/2c069422-23e8-4fa6-b461-9e064c67db69_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/f2dc5adc-fe86-4437-a5e8-4e595b27dc43_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/1051eb87-dc86-4c08-a4fb-5912528b9e0e_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0432561f-3de5-4996-9c35-1e66ed58ee56_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/de7074c6-6f76-4a8d-869d-79b88f3a5096_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/738727bf-489c-4566-9ede-67cfc847ce28_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/711ea54d-fe2b-458f-94e5-5a7bf2253629_segment.png\",\r\n    //     \"https://cdn.reimaginehome.ai/prod/mask/0c69456b-56c4-42d0-9000-bd8c37f01930_segment.png\"\r\n    // ],\r\n    \"maskCategory\": \"furnishing\",\r\n    \"spaceType\": \"ST-INT-003\", //for empty your space\r\n    // \"designTheme\": \"DT-INT-010\",\r\n    // \"colorPreference\": \"blue\",\r\n    // \"materialPreference\": \"wood\",\r\n    // \"landscapingPreference\": \"minimalist\",\r\n    \"generationCount\": 1,\r\n    \"additionalPrompt\": \"EMPTY_YOUR_SPACE\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{base_url}}/api/image/generate-image"
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Content-Security-Policy",
-									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
-								},
-								{
-									"key": "Cross-Origin-Opener-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Cross-Origin-Resource-Policy",
-									"value": "same-origin"
-								},
-								{
-									"key": "Origin-Agent-Cluster",
-									"value": "?1"
-								},
-								{
-									"key": "Referrer-Policy",
-									"value": "no-referrer"
-								},
-								{
-									"key": "Strict-Transport-Security",
-									"value": "max-age=15552000; includeSubDomains"
-								},
-								{
-									"key": "X-Content-Type-Options",
-									"value": "nosniff"
-								},
-								{
-									"key": "X-DNS-Prefetch-Control",
-									"value": "off"
-								},
-								{
-									"key": "X-Download-Options",
-									"value": "noopen"
-								},
-								{
-									"key": "X-Frame-Options",
-									"value": "SAMEORIGIN"
-								},
-								{
-									"key": "X-Permitted-Cross-Domain-Policies",
-									"value": "none"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "0"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "73"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"49-LKQ5TOKbneB5AQ19LKjqScQT6X0\""
-								},
-								{
-									"key": "Date",
-									"value": "Mon, 30 Sep 2024 16:29:16 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"message\": \"Image generation started\",\n    \"jobId\": \"66fad1d33e6dd10df4a578bc\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Get Generated Image By JobId",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							]
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/api/image/generate-image/:jobId",
+							"raw": "{{base_url}}/api/image/solution/:id",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"api",
 								"image",
-								"generate-image",
-								":jobId"
+								"solution",
+								":id"
 							],
 							"variable": [
 								{
-									"key": "jobId",
-									"value": "67515d7cac9cfe819668beb5"
+									"key": "id",
+									"value": "674e0c95cc87b6e4da1efed4"
 								}
 							]
 						}
@@ -4922,13 +5603,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/api/image/generate-image/:jobId",
+									"raw": "{{base_url}}/api/image//generate-image/:jobId",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"api",
 										"image",
+										"",
 										"generate-image",
 										":jobId"
 									],
@@ -5144,13 +5826,27 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/image/",
+						"url": {
+							"raw": "{{base_url}}/api/image/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								""
+							]
+						},
 						"description": "in query params\nskip & limit (number)"
 					},
 					"response": [
@@ -5159,7 +5855,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -5530,7 +6236,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/image/color-preferences"
+						"url": {
+							"raw": "{{base_url}}/api/image/color-preferences",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"color-preferences"
+							]
+						}
 					},
 					"response": [
 						{
@@ -5538,7 +6254,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/color-preferences"
+								"url": {
+									"raw": "{{base_url}}/api/image/color-preferences",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"color-preferences"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -5631,7 +6357,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/image/design-themes"
+						"url": {
+							"raw": "{{base_url}}/api/image/design-themes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"design-themes"
+							]
+						}
 					},
 					"response": [
 						{
@@ -5639,7 +6375,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/design-themes"
+								"url": {
+									"raw": "{{base_url}}/api/image/design-themes",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"design-themes"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -5732,7 +6478,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/image/space-types"
+						"url": {
+							"raw": "{{base_url}}/api/image/space-types",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"space-types"
+							]
+						}
 					},
 					"response": [
 						{
@@ -5740,7 +6496,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/space-types"
+								"url": {
+									"raw": "{{base_url}}/api/image/space-types",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"space-types"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -5837,7 +6603,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/image/landscaping-preferences"
+						"url": {
+							"raw": "{{base_url}}/api/image/landscaping-preferences",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"landscaping-preferences"
+							]
+						}
 					},
 					"response": [
 						{
@@ -5845,7 +6621,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/space-types"
+								"url": {
+									"raw": "{{base_url}}/api/image/space-types",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										"space-types"
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -5942,13 +6728,27 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/image/downloaded",
+						"url": {
+							"raw": "{{base_url}}/api/image/downloaded",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"downloaded"
+							]
+						},
 						"description": "in query params  \nskip & limit (number)"
 					},
 					"response": [
@@ -5957,7 +6757,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -6048,38 +6858,6 @@
 							"body": "[]"
 						}
 					]
-				},
-				{
-					"name": "delete generation",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/api/image/image-generation/:id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"api",
-								"image",
-								"image-generation",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "6751aef23871b70161f4125d"
-								}
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -6091,22 +6869,36 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imageGenerationId\": \"6751aef23871b70161f4125d\",\r\n    // \"projectId\": \"6751ac1a3871b70161f411cc\",\r\n    \"projectName\": \"test 1\"\r\n}",
+							"raw": "{\r\n    \"imageGenerationId\": \"674f6c03364e1791649db6d2\",\r\n    \"projectName\": \"test 1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{base_url}}/api/project/",
+						"url": {
+							"raw": "{{base_url}}/api/project/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"project",
+								""
+							]
+						},
 						"description": "**mustkey**: imageGenerationId\n\n**if updating existing project,** can provide both _id and name; only _id is okay.\n\n**if creating new project**, only provide name, exclude projectId"
 					},
 					"response": [
@@ -6115,7 +6907,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -6215,9 +7017,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -6243,7 +7049,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "674f6ca6364e1791649db6de"
+									"value": "674c4bc9c5de8a57d715c9ff"
 								}
 							]
 						}
@@ -6254,7 +7060,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -6354,9 +7170,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -6370,7 +7190,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/api/project/all?skip=0&limit=10",
+							"raw": "{{base_url}}/api/project/all?skip=1&limit=2",
 							"host": [
 								"{{base_url}}"
 							],
@@ -6382,11 +7202,11 @@
 							"query": [
 								{
 									"key": "skip",
-									"value": "0"
+									"value": "1"
 								},
 								{
 									"key": "limit",
-									"value": "10"
+									"value": "2"
 								}
 							]
 						},
@@ -6398,7 +7218,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -6498,9 +7328,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -6513,7 +7347,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/project/all-name",
+						"url": {
+							"raw": "{{base_url}}/api/project/all-name",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"project",
+								"all-name"
+							]
+						},
 						"description": "in query params\nskip & limit (number)"
 					},
 					"response": [
@@ -6522,7 +7366,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -6619,9 +7473,13 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
@@ -6634,7 +7492,17 @@
 								}
 							}
 						},
-						"url": "{{base_url}}/api/image/update-favourite"
+						"url": {
+							"raw": "{{base_url}}/api/image/update-favourite",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"update-favourite"
+							]
+						}
 					},
 					"response": [
 						{
@@ -6642,7 +7510,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -6739,22 +7617,36 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"imageGenerationId\": \"6751aef23871b70161f4125d\",\r\n    \"sizeName\": \"standard\",\r\n    \"size\": \"512 * 512\"\r\n}",
+							"raw": "{\r\n    \"imageGenerationId\": \"674f6c03364e1791649db6d2\"\r\n    // \"sizeName\": \"standard\",\r\n    // \"size\": \"512 * 512\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{base_url}}/api/image/add-to-downloaded",
+						"url": {
+							"raw": "{{base_url}}/api/image/add-to-downloaded",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"add-to-downloaded"
+							]
+						},
 						"description": "sizeName: Extra large(4x), large(2x), standard\n\nsize: width \\* height px"
 					},
 					"response": [
@@ -6763,7 +7655,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -6860,13 +7762,27 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/image/favourite",
+						"url": {
+							"raw": "{{base_url}}/api/image/favourite",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"favourite"
+							]
+						},
 						"description": "in query params\nskip & limit (number)"
 					},
 					"response": [
@@ -6875,7 +7791,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
@@ -6972,13 +7898,27 @@
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "{{access_token}}"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
-						"url": "{{base_url}}/api/image/downloaded",
+						"url": {
+							"raw": "{{base_url}}/api/image/downloaded",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"image",
+								"downloaded"
+							]
+						},
 						"description": "in query params  \nskip & limit (number)"
 					},
 					"response": [
@@ -6987,7 +7927,17 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"url": "{{base_url}}/api/image/"
+								"url": {
+									"raw": "{{base_url}}/api/image/",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"image",
+										""
+									]
+								}
 							},
 							"status": "OK",
 							"code": 200,
