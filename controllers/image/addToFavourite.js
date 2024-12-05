@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const ImageGeneration = require("../../models/ImageGeneration.js");
 
 module.exports = async (req, res) => {
