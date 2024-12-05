@@ -12,7 +12,8 @@ module.exports = async (req, res) => {
       .populate("media")
       .sort({
         updatedAt: -1,
-      });
+      })
+      .lean();
 
     let total = await Project.countDocuments({
       user: req?.user?._id,
@@ -35,17 +36,16 @@ module.exports = async (req, res) => {
       updatedAt: unassignedImages[0]?.createdAt,
     };
 
-    if (unassignedImages.length) {
-      projects.unshift(unassignedProject);
-      total = total + 1;
-    }
+    // if (unassignedImages.length) {
+    //   projects.unshift(unassignedProject);
+    //   total = total + 1;
+    // }
 
     const data = projects.slice(skip, limit);
 
     const result = data.map((proj) => {
-      const plainProj = proj.toObject();
       return {
-        ...plainProj,
+        ...proj,
         media_count: proj?.media?.length,
       };
     });
