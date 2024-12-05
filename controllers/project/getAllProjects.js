@@ -11,36 +11,38 @@ module.exports = async (req, res) => {
     })
       .populate("media")
       .sort({
-        updatedAt: 1,
+        updatedAt: -1,
       });
+
+    let total = await Project.countDocuments({
+      user: req?.user?._id,
+    });
 
     const unassignedImages = await ImageGeneration.find({
       user: req?.user?._id,
       type: "Generate",
       status: "Completed",
       project: null,
-    })
-      .sort({
-        _id: 1,
-      })
-      .skip(skip)
-      .limit(limit - 1);
+    }).sort({
+      _id: -1,
+    });
 
-    const unassinedProject = {
+    const unassignedProject = {
       user: req?.user?._id,
       name: "Unassigned",
       media: unassignedImages,
+      createdAt: unassignedImages[0]?.createdAt,
+      updatedAt: unassignedImages[0]?.createdAt,
     };
 
-    if (unassignedImages.length && !skip) projects.push(unassinedProject);
+    if (unassignedImages.length) {
+      projects.unshift(unassignedProject);
+      total = total + 1;
+    }
 
-    let total = await Project.countDocuments({
-      user: req?.user?._id,
-    });
+    const data = projects.slice(skip, limit);
 
-    total = unassignedImages.length ? total + 1 : total;
-
-    res.status(200).json({ projects, skip, limit, total });
+    res.status(200).json({ projects: data, skip, limit, total });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
