@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
     password,
     isAdmin,
     isVerified,
+    profile_pic,
   } = req.body;
 
   try {
@@ -46,6 +47,7 @@ module.exports = async (req, res) => {
     if (company) user.company = company;
     if (country) user.country = country;
     if (website) user.website = website;
+    if (typeof profile_pic === "string") user.profile_pic = profile_pic;
 
     if (phone) {
       const number = isValidPhoneNumber(phone);
