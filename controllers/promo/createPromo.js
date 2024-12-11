@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
       .status(201)
       .json({ message: "Promo created successfully", promo });
   } catch (error) {
-    if (error.code === 11000) {
+    if (error?.code === 11000) {
       return res.status(400).json({ message: "Promo code already exists" });
     }
     return res
