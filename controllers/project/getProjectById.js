@@ -9,12 +9,7 @@ module.exports = async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const project = await Project.findOne({
-      user: req?.user?._id,
-      _id: id,
-    }).populate("media");
-
-    const pj = await Project.aggregate([
+    const project = await Project.aggregate([
       {
         $match: {
           user: new mongoose.Types.ObjectId(req?.user?._id),
@@ -32,11 +27,33 @@ module.exports = async (req, res) => {
       {
         $addFields: {
           media_count: { $size: "$media" },
+          media: {
+            $map: {
+              input: "$media",
+              as: "m",
+              in: {
+                $mergeObjects: [
+                  "$$m",
+                  {
+                    media_name: {
+                      $arrayElemAt: [
+                        { $split: ["$$m.others.spaceTypeName", "/"] },
+                        0,
+                      ],
+                    },
+                  },
+                ],
+              },
+            },
+          },
         },
       },
     ]);
 
-    res.status(200).json({ pj });
+    if (project.length === 0)
+      return res.status(404).json({ message: "Project not found" });
+
+    return res.json(project[0]);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
