@@ -1,124 +1,128 @@
-const Plan = require('../../models/Plan.js');
-const Promo = require('../../models/Promo.js');
-const Transaction = require('../../models/Transaction.js');
-const netseller = require('../../services/payment.netseller.js');
+const { isValidObjectId } = require("mongoose");
+const Plan = require("../../models/Plan.js");
+const Promo = require("../../models/Promo.js");
+const Transaction = require("../../models/Transaction.js");
+const netseller = require("../../services/payment.netseller.js");
 
 module.exports = async (req, res) => {
-	const {
-		cardNum,
-		expMonth,
-		expYear,
-		cardName,
-		cvv2,
-		email,
-		mobileNo,
-		planId,
-		promo,
-		quantity = 1,
-	} = req.body;
+  const {
+    cardNum,
+    expMonth,
+    expYear,
+    cardName,
+    cvv2,
+    email,
+    mobileNo,
+    planId,
+    promo,
+    quantity = 1,
+  } = req.body;
 
-	const userId = req.user._id; // Get the user ID from req.user
+  const userId = req.user._id; // Get the user ID from req.user
 
-	try {
-		const plan = await Plan.findById(planId).populate('promo');
-		const userPromo = promo
-			? await Promo.findOne({ code: promo }).populate('plan')
-			: false;
+  try {
+    if (planId && !isValidObjectId(planId))
+      return res.status(400).json({ message: "Invalid Plan id" });
 
-		if (!plan) return res.status(400).json({ message: 'Invalid Plan' });
+    const plan = await Plan.findById(planId).populate("promo");
+    const userPromo = promo
+      ? await Promo.findOne({ code: promo }).populate("plan")
+      : false;
 
-		if (promo && !userPromo)
-			return res.status(400).json({ message: 'Invalid Promo' });
+    if (!plan) return res.status(400).json({ message: "Invalid Plan" });
 
-		if (
-			promo &&
-			userPromo &&
-			plan.promo &&
-			!userPromo.plan._id.equals(plan._id)
-		) {
-			return res.status(400).json({ message: 'Invalid Promo' });
-		}
+    if (promo && !userPromo)
+      return res.status(400).json({ message: "Invalid Promo" });
 
-		if (promo && userPromo && userPromo.expiresAt) {
-			const now = new Date();
-			const expiresAt = new Date(userPromo.expiresAt);
-			if (expiresAt < now) {
-				return res.status(400).json({ message: 'Promo Expired' });
-			}
-		}
+    if (
+      promo &&
+      userPromo &&
+      plan.promo &&
+      !userPromo.plan._id.equals(plan._id)
+    ) {
+      return res.status(400).json({ message: "Invalid Promo" });
+    }
 
-		let amount = plan.price;
-		let credits = plan.credit;
+    if (promo && userPromo && userPromo.expiresAt) {
+      const now = new Date();
+      const expiresAt = new Date(userPromo.expiresAt);
+      if (expiresAt < now) {
+        return res.status(400).json({ message: "Promo Expired" });
+      }
+    }
 
-		if (promo && userPromo) {
-			const discount = (plan.price * userPromo.deduct) / 100;
-			const discountedAmount = plan.price - discount;
-			amount = discountedAmount > 0 ? discountedAmount : 0;
-		}
+    let amount = plan.price;
+    let credits = plan.credit;
 
-		//custom plan logic
-		if (plan.isCustom) {
-			amount = amount * Math.round(Number(quantity));
-			credits = credits * Math.round(Number(quantity));
-		}
+    if (promo && userPromo) {
+      const discount = (plan.price * userPromo.deduct) / 100;
+      const discountedAmount = plan.price - discount;
+      amount = discountedAmount > 0 ? discountedAmount : 0;
+    }
 
-		const transactionDetails = {
-			cardNum,
-			expMonth,
-			expYear,
-			cardName,
-			amount,
-			cvv2,
-			email,
-			mobileNo,
-			planId: plan._id,
-		};
+    //custom plan logic
+    if (plan.isCustom) {
+      amount = amount * Math.round(Number(quantity));
+      credits = credits * Math.round(Number(quantity));
+    }
 
-		const transaction = new Transaction({
-			user: userId,
-			amount,
-			credits,
-			transactionId: 'temp',
-			status: 'Pending',
-		});
+    const transactionDetails = {
+      cardNum,
+      expMonth,
+      expYear,
+      cardName,
+      amount,
+      cvv2,
+      email,
+      mobileNo,
+      planId: plan._id,
+    };
 
-		const tempTransaction = await transaction.save();
+    const transaction = new Transaction({
+      user: userId,
+      amount,
+      credits,
+      transactionId: "temp",
+      status: "Pending",
+    });
 
-		let paymentReturn;
+    const tempTransaction = await transaction.save();
 
-		try {
-			paymentReturn = await netseller.requestToNetsellerpay(transactionDetails);
-		} catch (err) {
-			tempTransaction.status = 'Failed';
-			tempTransaction.transactionId = 'failed';
-			await tempTransaction.save();
-			console.log(err);
-			return res.status(500).json({ message: 'Payment Request Failed' });
-		}
+    let paymentReturn;
 
-		if (paymentReturn.payment === 'failed' || paymentReturn.status >= 400) {
-			tempTransaction.status = 'Failed';
-			tempTransaction.transactionId = 'failed';
-			await tempTransaction.save();
-			return res.status(400).json({ message: 'Payment Failed' });
-		}
+    try {
+      paymentReturn = await netseller.requestToNetsellerpay(transactionDetails);
+    } catch (err) {
+      tempTransaction.status = "Failed";
+      tempTransaction.transactionId = "failed";
+      await tempTransaction.save();
+      console.log(err);
+      return res.status(500).json({ message: "Payment Request Failed" });
+    }
 
-		//set transaction id to tempTransaction and save
-		tempTransaction.transactionId = paymentReturn.transactionId;
+    if (paymentReturn.payment === "failed" || paymentReturn.status >= 400) {
+      tempTransaction.status = "Failed";
+      tempTransaction.transactionId = "failed";
+      await tempTransaction.save();
+      return res.status(400).json({ message: "Payment Failed" });
+    }
 
-		await tempTransaction.save();
+    //set transaction id to tempTransaction and save
+    tempTransaction.transactionId = paymentReturn.transactionId;
 
-		//after payment gateway procedures done
-		await tempTransaction.completeTransaction();
+    await tempTransaction.save();
 
-		return res.status(201).json({
-			message: 'Transaction created successfully',
-			transaction: tempTransaction,
-		});
-	} catch (error) {
-		console.log(error.stack);
-		return res
-			.status(500)
-			.json({ message: 'Error creating transaction', error: error.message });
-	}
+    //after payment gateway procedures done
+    await tempTransaction.completeTransaction();
+
+    return res.status(201).json({
+      message: "Transaction created successfully",
+      transaction: tempTransaction,
+    });
+  } catch (error) {
+    console.log(error.stack);
+    return res
+      .status(500)
+      .json({ message: "Error creating transaction", error: error.message });
+  }
 };

@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
 
     const projectNames = await Project.find({
       user: req?.user?._id,
+      name: { $ne: "Unassigned" },
     })
       .select("-media -user")
       .sort({ updatedAt: -1 })
@@ -15,6 +16,7 @@ module.exports = async (req, res) => {
 
     const total = await Project.countDocuments({
       user: req?.user?._id,
+      name: { $ne: "Unassigned" },
     });
 
     res.status(200).json({ projectNames, skip, limit, total });

@@ -74,6 +74,9 @@ module.exports = async (req, res) => {
       },
     });
   } catch (error) {
+    if (error?.code === 11000) {
+      return res.status(400).json({ message: "email already in use" });
+    }
     return res
       .status(500)
       .json({ message: "Error updating user", error: error.message });
