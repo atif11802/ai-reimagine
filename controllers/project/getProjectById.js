@@ -14,7 +14,29 @@ module.exports = async (req, res) => {
       _id: id,
     }).populate("media");
 
-    res.status(200).json(project);
+    const pj = await Project.aggregate([
+      {
+        $match: {
+          user: new mongoose.Types.ObjectId(req?.user?._id),
+          _id: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: "imagegenerations",
+          localField: "media",
+          foreignField: "_id",
+          as: "media",
+        },
+      },
+      {
+        $addFields: {
+          media_count: { $size: "$media" },
+        },
+      },
+    ]);
+
+    res.status(200).json({ pj });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
