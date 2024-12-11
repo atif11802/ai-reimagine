@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
 
     const projectNames = await Project.find({
       user: req?.user?._id,
+      name: { $ne: "Unassigned" },
     })
       .select("-media -user")
       .sort({ updatedAt: -1 })
