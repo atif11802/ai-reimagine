@@ -62,8 +62,12 @@ module.exports = async (req, res) => {
 
     //custom plan logic
     if (plan.isCustom) {
-      amount = amount * Math.round(Number(quantity));
-      credits = credits * Math.round(Number(quantity));
+      const customPrice = Number(quantity);
+
+      const creditPerUnit = plan.credit / plan.price;
+
+      credits = Math.round(creditPerUnit * customPrice);
+      amount = customPrice;
     }
 
     const transactionDetails = {
