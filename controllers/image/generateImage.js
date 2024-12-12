@@ -32,8 +32,6 @@ module.exports = async (req, res) => {
 			prompt += "Try to add color to floor and celing. ";
 		}
 
-		prompt = additionalPrompt ?? prompt;
-
 		const solution = await Solution.findOne({
 			_id: solutionId,
 			user: req.user._id,
