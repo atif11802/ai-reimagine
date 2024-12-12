@@ -6,23 +6,34 @@ const getUserCredits = require("../../utils/getUserCredits.js");
 
 module.exports = async (req, res) => {
   const {
-    solutionId = "",
-    maskJobId = "",
+    solutionId,
+    maskJobId,
     masks = [],
-    spaceType = "",
-    designTheme = "",
-    colorPreference = "",
-    materialPreference = "",
-    landscapingPreference = "",
-    maskingElement = "",
+    spaceType,
+    designTheme,
+    colorPreference,
+    materialPreference,
+    landscapingPreference,
+    maskingElement,
     generationCount = 1,
-    additionalPrompt = "",
-    maskCategory = "",
+    additionalPrompt,
+    maskCategory,
   } = req.body;
 
-  console.log({ body: req.body });
+  // console.log({ body: req.body });
 
   try {
+    // modify prompt
+
+    let prompt =
+      "Add decorative objects if needed. example: sofa, rug, light, photo frame, flower etc ";
+
+    if (maskCategory === "furnishing") {
+      prompt += "Try to add color to floor and celing. ";
+    }
+
+    prompt = additionalPrompt ?? prompt;
+
     const solution = await Solution.findOne({
       _id: solutionId,
       user: req.user._id,
@@ -47,7 +58,7 @@ module.exports = async (req, res) => {
       mask?.maskUrls.forEach((item) => {
         if (maskCategory === "architectural") {
           // if (item.name === maskingElement) {
-          // 	gettedMask.push(item.url);
+          //   gettedMask.push(item.url);
           // }
 
           const architecturalItems = item.category.split(",").find((cat) => {
@@ -59,8 +70,27 @@ module.exports = async (req, res) => {
           if (architecturalItems) {
             gettedMask.push(item.url);
           }
-        } else {
-          gettedMask.push(item.url);
+        } else if (maskCategory === "furnishing") {
+          if (item.name !== "wall" && item.name !== "windowpane") {
+            gettedMask.push(item.url);
+          }
+        } else if (maskCategory === "landscaping") {
+          if (
+            item.name !== "wall" &&
+            item.name !== "ceiling" &&
+            item.name !== "house"
+          ) {
+            gettedMask.push(item.url);
+          }
+
+          //   const landscapingItems = item.category.split(",").find((cat) => {
+          //     if (cat === "landscaping") {
+          //       return item;
+          //     }
+          //   });
+          //   if (landscapingItems) {
+          //     gettedMask.push(item.url);
+          //   }
         }
       });
     }
@@ -82,7 +112,7 @@ module.exports = async (req, res) => {
       material_preference: materialPreference,
       masking_element: maskingElement,
       landscaping_preference: landscapingPreference,
-      additional_prompt: additionalPrompt,
+      additional_prompt: prompt,
       image_url: imageUrl,
       mask_urls: mask?.maskUrls ? gettedMask : masks,
       generation_count: generationCount,
