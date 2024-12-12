@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
       return res.status(200).json({ credits });
     } else if (customCredit !== null && customCredit !== undefined) {
       const pricePerCredit = plan.price / plan.credit;
-      const price = (pricePerCredit * customCredit).toFixed(2);
+      const price = +(pricePerCredit * customCredit).toFixed(2);
 
       return res.status(200).json({ price });
     }
