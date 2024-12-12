@@ -18,6 +18,8 @@ module.exports = async (req, res) => {
     quantity = 1,
   } = req.body;
 
+  req.body.promo = undefined;
+
   const userId = req.user._id; // Get the user ID from req.user
 
   try {
@@ -54,12 +56,6 @@ module.exports = async (req, res) => {
     let amount = plan.price;
     let credits = plan.credit;
 
-    if (promo && userPromo) {
-      const discount = (plan.price * userPromo.deduct) / 100;
-      const discountedAmount = plan.price - discount;
-      amount = discountedAmount > 0 ? discountedAmount : 0;
-    }
-
     //custom plan logic
     if (plan.isCustom) {
       const customPrice = Number(quantity);
@@ -68,6 +64,12 @@ module.exports = async (req, res) => {
 
       credits = Math.round(creditPerUnit * customPrice);
       amount = customPrice;
+    }
+
+    //custom plan logic
+    if (plan.isCustom) {
+      amount = amount * Math.round(Number(quantity));
+      credits = credits * Math.round(Number(quantity));
     }
 
     const transactionDetails = {
