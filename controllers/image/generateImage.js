@@ -5,178 +5,200 @@ const callReimagine = require("../../utils/callReimagine.js");
 const getUserCredits = require("../../utils/getUserCredits.js");
 
 module.exports = async (req, res) => {
-	const {
-		solutionId,
-		maskJobId,
-		masks,
-		spaceType,
-		designTheme,
-		colorPreference,
-		materialPreference,
-		landscapingPreference,
-		maskingElement,
-		generationCount = 1,
-		additionalPrompt,
-		maskCategory,
-	} = req.body;
+  const {
+    solutionId,
+    maskJobId,
+    masks,
+    spaceType,
+    designTheme,
+    colorPreference,
+    materialPreference,
+    landscapingPreference,
+    maskingElement,
+    generationCount = 1,
+    additionalPrompt = "",
+    maskCategory,
+  } = req.body;
 
-	try {
-		const solution = await Solution.findOne({
-			_id: solutionId,
-			user: req.user._id,
-		});
+  try {
+    // modify prompt
 
-		if (!solution) {
-			return res.status(404).json({ message: "Solution Not Found" });
-		}
+    let prompt =
+      "Add decorative objects if needed. example: sofa, rug, light, photo frame, flower etc ";
 
-		const imageUrl = solution.url;
+    if (maskCategory === "furnishing") {
+      prompt += "Try to add color to floor and celing";
+    }
 
-		if (!imageUrl) {
-			return res.status(404).json({ message: "Image Not Found in solution" });
-		}
+    prompt += additionalPrompt;
 
-		let mask;
-		let gettedMask = [];
+    const solution = await Solution.findOne({
+      _id: solutionId,
+      user: req.user._id,
+    });
 
-		if (maskJobId) {
-			mask = await ImageGeneration.findOne({ jobId: maskJobId });
+    if (!solution) {
+      return res.status(404).json({ message: "Solution Not Found" });
+    }
 
-			mask?.maskUrls.forEach((item) => {
-				if (maskCategory === "architectural") {
-					// if (item.name === maskingElement) {
-					// 	gettedMask.push(item.url);
-					// }
+    const imageUrl = solution.url;
 
-					const architecturalItems = item.category.split(",").find((cat) => {
-						if (cat === "architectural") {
-							return item;
-						}
-					});
+    if (!imageUrl) {
+      return res.status(404).json({ message: "Image Not Found in solution" });
+    }
 
-					if (architecturalItems) {
-						gettedMask.push(item.url);
-					}
-				} else {
-					gettedMask.push(item.url);
-				}
-			});
-		}
+    let mask;
+    let gettedMask = [];
 
-		const userCredits = await getUserCredits(req.user._id);
+    if (maskJobId) {
+      mask = await ImageGeneration.findOne({ jobId: maskJobId });
 
-		if (
-			userCredits === 0 ||
-			userCredits < process.env.CREDITS_CONSUME_PER_REQUEST
-		) {
-			return res.status(403).json({ message: "Insufficient Credit" });
-		}
+      mask?.maskUrls.forEach((item) => {
+        if (maskCategory === "architectural") {
+          if (item.name === maskingElement) {
+            gettedMask.push(item.url);
+          }
 
-		const data = {
-			...(designTheme ? { design_theme: designTheme } : {}),
-			...(spaceType ? { space_type: spaceType } : {}),
-			...(maskCategory ? { mask_category: maskCategory } : {}),
-			...(colorPreference ? { color_preference: colorPreference } : {}),
-			...(materialPreference
-				? { material_preference: materialPreference }
-				: {}),
-			...(maskingElement ? { masking_element: maskingElement } : {}),
-			...(landscapingPreference
-				? { landscaping_preference: landscapingPreference }
-				: {}),
-			...(additionalPrompt ? { additional_prompt: additionalPrompt } : {}),
-			image_url: imageUrl,
-			mask_urls: mask?.maskUrls ? gettedMask : masks,
-			generation_count: generationCount,
-			webhook_url: `${process.env.BACKEND_URL}/api/image/webhook/generate`,
-		};
+          //   const architecturalItems = item.category.split(",").find((cat) => {
+          //     if (cat === "architectural") {
+          //       return item;
+          //     }
+          //   });
 
-		const generateResponse = await callReimagine(
-			"/generate_image",
-			"POST",
-			data
-		);
+          //   if (architecturalItems) {
+          //     gettedMask.push(item.url);
+          //   }
+        } else if (maskCategory === "furnishing") {
+          if (item.name !== "wall" && item.name !== "windowpane") {
+            gettedMask.push(item.url);
+          }
+        } else if (maskCategory === "landscaping") {
+          const landscapingItems = item.category.split(",").find((cat) => {
+            if (cat === "landscaping") {
+              return item;
+            }
+          });
+          if (landscapingItems) {
+            gettedMask.push(item.url);
+          }
+        }
+      });
+    }
 
-		let projectExist = await Project.findOne({
-			user: req.user._id,
-			name: "Unassigned",
-		});
+    const userCredits = await getUserCredits(req.user._id);
 
-		if (!projectExist) {
-			projectExist = await Project.create({
-				user: req.user._id,
-				name: "Unassigned",
-			});
-		}
+    if (
+      userCredits === 0 ||
+      userCredits < process.env.CREDITS_CONSUME_PER_REQUEST
+    ) {
+      return res.status(403).json({ message: "Insufficient Credit" });
+    }
 
-		const newJob = new ImageGeneration({
-			user: req.user._id,
-			imageUrl: imageUrl,
-			type: "Generate",
-			solutionId: solutionId,
-			jobId: generateResponse?.data?.job_id,
-			prompt: additionalPrompt,
-			others: {
-				maskCategory,
-				maskJobId,
-				spaceType,
-				designTheme,
-				colorPreference,
-				materialPreference,
-				landscapingPreference,
-				generationCount,
-			},
-			creditsUsed:
-				Number(process.env.CREDITS_CONSUME_PER_REQUEST) * generationCount,
-			status: "Processing",
-			project: projectExist?._id,
-		});
+    const data = {
+      ...(designTheme ? { design_theme: designTheme } : {}),
+      ...(spaceType ? { space_type: spaceType } : {}),
+      ...(maskCategory ? { mask_category: maskCategory } : {}),
+      ...(colorPreference ? { color_preference: colorPreference } : {}),
+      ...(materialPreference
+        ? { material_preference: materialPreference }
+        : {}),
+      ...(maskingElement ? { masking_element: maskingElement } : {}),
+      ...(landscapingPreference
+        ? { landscaping_preference: landscapingPreference }
+        : {}),
+      additional_prompt: prompt,
+      image_url: imageUrl,
+      mask_urls: mask?.maskUrls ? gettedMask : masks,
+      generation_count: generationCount,
+      webhook_url: `${process.env.BACKEND_URL}/api/image/webhook/generate`,
+    };
 
-		// await projectExist.media.push(newJob._id).save();
-		await Project.findByIdAndUpdate(
-			projectExist._id,
-			{ $push: { media: newJob._id } },
-			{ new: true }
-		);
+    const generateResponse = await callReimagine(
+      "/generate_image",
+      "POST",
+      data
+    );
 
-		const response = await callReimagine("/get-space-type-list", "GET");
+    let projectExist = await Project.findOne({
+      user: req.user._id,
+      name: "Unassigned",
+    });
 
-		if (spaceType && response?.status === "success") {
-			const allFields = [
-				...response?.data?.exterior_spaces,
-				...response?.data?.interior_spaces,
-			];
+    if (!projectExist) {
+      projectExist = await Project.create({
+        user: req.user._id,
+        name: "Unassigned",
+      });
+    }
 
-			const spaceTypeName = allFields.find((obj) => {
-				if (obj[spaceType]) {
-					return obj;
-				}
-			});
+    const newJob = new ImageGeneration({
+      user: req.user._id,
+      imageUrl: imageUrl,
+      type: "Generate",
+      solutionId: solutionId,
+      jobId: generateResponse?.data?.job_id,
+      prompt: additionalPrompt,
+      others: {
+        maskCategory,
+        maskJobId,
+        spaceType,
+        designTheme,
+        colorPreference,
+        materialPreference,
+        landscapingPreference,
+        generationCount,
+      },
+      creditsUsed:
+        Number(process.env.CREDITS_CONSUME_PER_REQUEST) * generationCount,
+      status: "Processing",
+      project: projectExist?._id,
+    });
 
-			if (spaceTypeName) {
-				newJob.others.spaceTypeName = spaceTypeName[spaceType];
-			}
-		}
+    // await projectExist.media.push(newJob._id).save();
+    await Project.findByIdAndUpdate(
+      projectExist._id,
+      { $push: { media: newJob._id } },
+      { new: true }
+    );
 
-		await newJob.save();
+    const response = await callReimagine("/get-space-type-list", "GET");
 
-		const solutionMedia = solution?.generated_image.length
-			? solution.generated_image
-			: [];
+    if (spaceType && response?.status === "success") {
+      const allFields = [
+        ...response?.data?.exterior_spaces,
+        ...response?.data?.interior_spaces,
+      ];
 
-		solutionMedia.push(newJob._id);
+      const spaceTypeName = allFields.find((obj) => {
+        if (obj[spaceType]) {
+          return obj;
+        }
+      });
 
-		solution.generated_image = solutionMedia;
-		await solution.save();
+      if (spaceTypeName) {
+        newJob.others.spaceTypeName = spaceTypeName[spaceType];
+      }
+    }
 
-		res.status(201).json({
-			message: "Image generation started",
-			jobId: generateResponse?.data?.job_id,
-			solutionId: solutionId,
-		});
-	} catch (error) {
-		if (error?.name === "AxiosError")
-			return res.status(400).json({ message: error.message });
-		res.status(500).json({ message: error.message });
-	}
+    await newJob.save();
+
+    const solutionMedia = solution?.generated_image.length
+      ? solution.generated_image
+      : [];
+
+    solutionMedia.push(newJob._id);
+
+    solution.generated_image = solutionMedia;
+    await solution.save();
+
+    res.status(201).json({
+      message: "Image generation started",
+      jobId: generateResponse?.data?.job_id,
+      solutionId: solutionId,
+    });
+  } catch (error) {
+    if (error?.name === "AxiosError")
+      return res.status(400).json({ message: error.message });
+    res.status(500).json({ message: error.message });
+  }
 };
