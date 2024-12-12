@@ -66,12 +66,6 @@ module.exports = async (req, res) => {
       amount = customPrice;
     }
 
-    //custom plan logic
-    if (plan.isCustom) {
-      amount = amount * Math.round(Number(quantity));
-      credits = credits * Math.round(Number(quantity));
-    }
-
     const transactionDetails = {
       cardNum,
       expMonth,
